@@ -1,0 +1,40 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model bibliya {
+  id     Int    @id
+  knyha  String @db.VarChar(100)
+  rozdil String @db.MediumText
+  text   String @db.MediumText
+  zavit  String @default("sz") @db.VarChar(255)
+}
+
+model katehoriyi {
+  id         Int    @id @default(autoincrement())
+  userid     Int
+  katehoriya String @db.VarChar(255)
+}
+
+model tsytaty {
+  id         Int    @id @default(autoincrement())
+  userid     Int
+  categoryid Int
+  tsytata    String @db.MediumText
+}
+
+model user {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(255)
+  username String @db.VarChar(128)
+  password String @db.VarChar(128)
+  salt     String @db.VarChar(128)
+  email    String @db.VarChar(128)
+  typ      String @db.VarChar(50)
+}
