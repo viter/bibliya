@@ -16,13 +16,11 @@ export default async function Knyha({ params }: KnyhaParams): Promise<JSX.Elemen
   });
 
   return (
-    <>
+    <div className="container mx-auto bg-slate-300">
       <KnyhaHeader knyha={params.knyha} />
-      <main className="bg-slate-200">
-        <Contents data={data} />
-        <Chapters data={data} />
-        <ScrollerScript />
-      </main>
-    </>
+      <Contents data={data} />
+      <Chapters data={data} />
+      <ScrollerScript />
+    </div>
   );
 }

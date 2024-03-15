@@ -2,6 +2,7 @@ const rozdily = document.querySelectorAll('.rozdil');
 const contentsItems = document.querySelectorAll('.content');
 const contentDiv = document.querySelector('#content');
 const stubDiv = document.querySelector('#stub');
+const tekstDiv = document.querySelector('#tekst');
 
 const contentsLinks = document.querySelector('div#content > nav > ul');
 let activeItem = document.querySelector('div#content > nav > ul > li > a.font-bold');
@@ -13,12 +14,9 @@ if (!activeItem) {
 let prevItem;
 let scrollOffset = 0;
 
-window.addEventListener('scroll', () => {
+tekstDiv.addEventListener('scroll', () => {
   rozdily.forEach((rozdil) => {
-    const rect = rozdil.nextSibling.getBoundingClientRect();
-    if (rect.top < 120) {
-      stubDiv.style.height = `${rect.height - 40}px`;
-    }
+    const rect = rozdil.getBoundingClientRect();
     if (rect.top < 350 && rect.top > 50) {
       activeItem = document.querySelector(`#item_${rozdil.id.split('_')[1]}`);
 
