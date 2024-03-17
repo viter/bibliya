@@ -22,7 +22,9 @@ export default function Home(): JSX.Element {
           </h1>
         </div>
         <p className="text-gray-700">
-          <Link href="/but">Буття</Link>
+          <Link href="/but" scroll={false}>
+            Буття
+          </Link>
         </p>
         <p className="text-gray-700">
           <Link href="/vyh">Вихід</Link>

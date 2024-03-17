@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { decode } from 'html-entities';
 import localFont from 'next/font/local';
 import { Data } from '@/lib/types';
+import { forwardRef } from 'react';
 
 type ChaptersProps = {
   data: Data[];
@@ -12,11 +13,12 @@ const arnoldFont = localFont({
   variable: '--font-arnold',
 });
 
-export default function Chapters({ data }: ChaptersProps) {
+const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters({ data }, ref) {
   return (
     <div
       id="tekst"
-      className="text-justify bg-slate-100 lg:left-auto lg:right-9 lg:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-10 pt-0 lg:inset-0 lg:overflow-y-auto lg:fixed"
+      ref={ref}
+      className="text-justify bg-slate-100 lg:left-auto lg:right-9 lg:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 lg:px-10 pt-0 lg:inset-0 lg:overflow-y-auto lg:fixed"
     >
       {data.map((dataItem) => {
         const text = decode(dataItem.text).split(' ');
@@ -26,7 +28,7 @@ export default function Chapters({ data }: ChaptersProps) {
         return (
           <div key={`${dataItem.id}r2`}>
             <div id={`rozdil_${dataItem.id}`} className="rozdil"></div>
-            <p className="bg-slate-100 font-bold pt-4 pb-6 mb-0 top-0 lg:sticky">
+            <p className="bg-slate-100 font-bold pt-6 pb-6 mb-0 top-0 lg:sticky">
               {dataItem.rozdil}
             </p>
             <p className="mb-16">
@@ -51,4 +53,6 @@ export default function Chapters({ data }: ChaptersProps) {
       })}
     </div>
   );
-}
+});
+
+export default Chapters;
