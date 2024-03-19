@@ -6,6 +6,8 @@ import { forwardRef } from 'react';
 
 type ChaptersProps = {
   data: Data[];
+  onTouchStart: (e: TouchEvent) => void;
+  onTouchEnd: (e: TouchEvent) => void;
 };
 
 const arnoldFont = localFont({
@@ -13,12 +15,17 @@ const arnoldFont = localFont({
   variable: '--font-arnold',
 });
 
-const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters({ data }, ref) {
+const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
+  { data, onTouchStart, onTouchEnd },
+  ref,
+) {
   return (
     <div
       id="tekst"
       ref={ref}
-      className="text-justify bg-slate-100 lg:left-auto lg:right-9 lg:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 lg:px-10 pt-0 lg:inset-0 lg:overflow-y-auto lg:fixed"
+      className="text-justify bg-slate-100 md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 md:px-10 pt-0 md:inset-0 md:overflow-y-auto md:fixed"
+      onTouchStart={(e: any) => onTouchStart(e)}
+      onTouchEnd={(e: any) => onTouchEnd(e)}
     >
       {data.map((dataItem) => {
         const text = decode(dataItem.text).split(' ');
@@ -28,7 +35,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters({ d
         return (
           <div key={`${dataItem.id}r2`}>
             <div id={`rozdil_${dataItem.id}`} className="rozdil"></div>
-            <p className="bg-slate-100 font-bold pt-6 pb-6 mb-0 top-0 lg:sticky">
+            <p className="bg-slate-100 font-bold pt-6 pb-6 mb-0 top-0 md:sticky">
               {dataItem.rozdil}
             </p>
             <p className="mb-16">

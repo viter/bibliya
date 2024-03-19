@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
+    "@raddix/use-window-size": "^1.0.1",
     "@radix-ui/react-icons": "^1.3.0",
     "clsx": "^2.1.0",
     "html-entities": "^2.5.2",
