@@ -1,6 +1,5 @@
 import { Data } from '@/lib/types';
 import { decode } from 'html-entities';
-import ShowContentsButton from './ShowContentsButton';
 import { forwardRef } from 'react';
 import clsx from 'clsx';
 
@@ -10,7 +9,7 @@ const Contents = forwardRef<HTMLDivElement, { data: Data[] }>(function Contents(
       <div
         id="content"
         ref={ref}
-        className="left-[-1000px] md:block md:left-[max(0px,calc(50%-45rem))] 3xl:w-[25rem] fixed z-20 inset-0 top-[120px] right-auto w-[14.5rem] lg:w-[19.5rem] px-8 overflow-y-auto"
+        className="hidden md:block md:left-[max(0px,calc(50%-45rem))] 3xl:w-[25rem] fixed z-20 inset-0 top-[120px] right-auto w-[14.5rem] lg:w-[19.5rem] px-8 overflow-y-auto"
       >
         <nav>
           <ul id="itemsList" className="leading-6">

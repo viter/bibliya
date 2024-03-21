@@ -47,6 +47,7 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
 
     if (width > MOBILE_WINDOW_WIDTH) {
       setShowMenu(false);
+      document.body.classList.remove('overflow-hidden');
       chaptersDiv?.addEventListener('scroll', scroller.bind(args));
     } else {
       document.addEventListener('scroll', scrollerMobile.bind({ currentItem }));
@@ -120,7 +121,7 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
       <KnyhaHeader knyha={knyha} onClick={onClick} />
       <Contents data={data} ref={contentsRef} />
       <Chapters data={data} ref={chaptersRef} onTouchStart={touchStart} onTouchEnd={touchEnd} />
-      <div className={clsx(showMenu ? '' : 'left-[-10000px] fixed')}>
+      <div className={clsx(showMenu ? '' : 'invisible fixed')}>
         <MobileMenu
           data={data}
           ref={mobileMenuRef}

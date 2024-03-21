@@ -3,7 +3,6 @@ import { decode } from 'html-entities';
 import localFont from 'next/font/local';
 import { Data } from '@/lib/types';
 import { forwardRef } from 'react';
-import { useEffect } from 'react';
 
 type ChaptersProps = {
   data: Data[];
