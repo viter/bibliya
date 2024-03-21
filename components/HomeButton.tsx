@@ -10,6 +10,7 @@ export default function HomeButton({ className }: { className?: string }) {
   const buttonStyle = twMerge('hidden md:block text-slate-400 hover:text-slate-300', className);
 
   function handleClick() {
+    document.body.classList.remove('overflow-hidden');
     router.push('/');
   }
 
