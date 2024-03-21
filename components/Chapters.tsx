@@ -3,6 +3,7 @@ import { decode } from 'html-entities';
 import localFont from 'next/font/local';
 import { Data } from '@/lib/types';
 import { forwardRef } from 'react';
+import { useEffect } from 'react';
 
 type ChaptersProps = {
   data: Data[];
@@ -23,7 +24,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
     <div
       id="tekst"
       ref={ref}
-      className="text-justify bg-slate-100 md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 md:px-10 pt-0 md:inset-0 md:overflow-y-auto md:fixed"
+      className="text-justify bg-slate-100 text-lg md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 md:px-10 pt-0 md:inset-0 md:overflow-y-auto md:fixed"
       onTouchStart={(e: any) => onTouchStart(e)}
       onTouchEnd={(e: any) => onTouchEnd(e)}
     >
@@ -43,11 +44,12 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
                 className={clsx(
                   arnoldFont.variable,
                   'font-arnold',
-                  'text-[30px]',
+                  'text-[38px]',
                   'text-red-500',
                   'float-left',
                   'block',
                   'mr-2',
+                  'mt-3',
                 )}
               >
                 {firstLatterInWord}

@@ -3,6 +3,7 @@
 import { Data } from '@/lib/types';
 import { decode } from 'html-entities';
 import clsx from 'clsx';
+import { forwardRef } from 'react';
 
 interface MobileMenuProps {
   data: Data[];
@@ -11,12 +12,10 @@ interface MobileMenuProps {
   onTouchEnd: (e: TouchEvent) => void;
 }
 
-export default function MobileMenu({
-  data,
-  handleClick,
-  onTouchStart,
-  onTouchEnd,
-}: MobileMenuProps) {
+const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMenu(
+  { data, handleClick, onTouchStart, onTouchEnd },
+  ref,
+) {
   function handleMainDivClick(e: any) {
     if (e.target.getAttribute('id') === 'main') {
       handleClick();
@@ -26,13 +25,14 @@ export default function MobileMenu({
   return (
     <div
       id="main"
-      className="w-full h-full top-0 fixed backdrop-blur-[8px] bg-slate/30"
+      className="w-full h-full top-0 fixed backdrop-blur-[8px] bg-slate/30 shadow-2xl"
       onClick={handleMainDivClick}
       onTouchStart={handleMainDivClick}
     >
       <div
         id="mobileMenu"
-        className="fixed inset-0 w-2/3 p-5 overflow-y-auto bg-slate-200  overscroll-y-contain shadow-2xl"
+        className="fixed inset-0 w-2/3 p-5 overflow-y-auto bg-slate-200"
+        ref={ref}
       >
         <p>Mobile Menu</p>
         <div
@@ -42,12 +42,12 @@ export default function MobileMenu({
           onTouchEnd={(e: any) => onTouchEnd(e)}
         >
           <nav className="lg:text-sm lg:leading-6 relative">
-            <ul id="itemsList" className="text-sm leading-6">
+            <ul id="itemsList" className="leading-6">
               {data.map((dataItem, index) => (
                 <li key={`${dataItem.id}r3`}>
                   <a
                     href={`#rozdil_${dataItem.id}`}
-                    id={`item_${dataItem.id}`}
+                    id={`item_m_${dataItem.id}`}
                     onClick={() => handleClick()}
                     className={clsx(index === 0 && 'font-bold', 'block py-1 hover:text-slate-900 ')}
                   >
@@ -61,4 +61,6 @@ export default function MobileMenu({
       </div>
     </div>
   );
-}
+});
+
+export default MobileMenu;
