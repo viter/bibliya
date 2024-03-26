@@ -29,14 +29,16 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
     >
       {data.map((dataItem) => {
         const text = decode(dataItem.text).split(' ');
-        text.shift();
+        if (/^[0-9]/.test(text[0])) {
+          text.shift();
+        }
         const word = text.shift()?.split('');
         const firstLatterInWord = word?.shift();
         return (
           <div key={`${dataItem.id}r2`}>
             <div id={`rozdil_${dataItem.id}`} className="rozdil"></div>
             <p className="bg-slate-100 font-bold pt-6 pb-6 mb-0 top-0 md:sticky">
-              {dataItem.rozdil}
+              {decode(dataItem.rozdil)}
             </p>
             <p className="mb-16">
               <span

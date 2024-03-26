@@ -1,13 +1,7 @@
 import ContentsButton from '@/components/ContentsButton';
 import HomeButton from '@/components/HomeButton';
-
-interface StringDictionary {
-  [key: string]: string;
-}
-
-const knyhy: StringDictionary = {
-  but: 'Буття',
-};
+import { knyhy } from '@/utils/knyhy';
+import { decode } from 'html-entities';
 
 export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick: () => void }) {
   return (
@@ -17,7 +11,7 @@ export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick
           <ContentsButton handleClick={onClick} />
           <HomeButton />
           <div className="w-full text-center font-bold text-slate-300 text-2xl lg:text-3xl">
-            {knyhy[knyha]}
+            {Array.isArray(knyhy[knyha]) ? decode(knyhy[knyha][1]) : decode(knyhy[knyha] as string)}
           </div>
         </div>
       </div>
