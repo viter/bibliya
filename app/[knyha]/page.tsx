@@ -12,5 +12,7 @@ export default async function KnyhaPage({ params }: KnyhaParams): Promise<JSX.El
     },
   });
 
+  debugger;
+
   return <Knyha knyha={params.knyha} data={data} />;
 }
