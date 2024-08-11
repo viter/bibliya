@@ -7,7 +7,7 @@ import { twMerge } from 'tailwind-merge';
 export default function HomeButton({ className }: { className?: string }) {
   const router = useRouter();
 
-  const buttonStyle = twMerge('hidden md:block text-slate-400 hover:text-slate-300', className);
+  const buttonStyle = twMerge('hidden md:block text-neutral-600 hover:text-neutral-500', className);
 
   function handleClick() {
     document.body.classList.remove('overflow-hidden');
