@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         arnold: ['var(--font-arnold)'],
         lombardina: ['var(--font-lombardina)'],
+        evangelie: ['var(--font-evangelie)'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
