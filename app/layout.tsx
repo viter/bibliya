@@ -17,8 +17,8 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, 'bg-slate-100 md:bg-neutral-100')}>
-        <div className="w-[1050px] relative mx-auto">{children}</div>
+      <body className={clsx(inter.className, 'bg-neutral-100')}>
+        <div className="md:w-[800px] lg:w-[1050px] relative md:mx-auto">{children}</div>
       </body>
     </html>
   );
