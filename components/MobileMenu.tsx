@@ -5,6 +5,7 @@ import { decode } from 'html-entities';
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 import HomeButton from '@/components/HomeButton';
+import ThemeSwitch from './ThemeSwitch';
 
 interface MobileMenuProps {
   data: Data[];
@@ -26,17 +27,20 @@ const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMe
   return (
     <div
       id="main"
-      className="w-full h-full top-0 fixed backdrop-blur-[8px] bg-slate/30 shadow-2xl"
+      className="w-full h-full top-0 fixed backdrop-blur-[8px] bg-neutral/30 shadow-2xl"
       onClick={handleMainDivClick}
       onTouchStart={handleMainDivClick}
     >
       <div
         id="mobileMenu"
-        className="fixed inset-0 w-2/3 p-3 overflow-y-auto bg-slate-200"
+        className="fixed inset-0 w-2/3 p-3 overflow-y-auto bg-neutral-200 dark:bg-neutral-800"
         ref={ref}
       >
-        <div className="flex bg-slate-300 py-3 px-5 rounded-md">
-          <HomeButton className="block text-slate-700 hover:text-slate-700 hover:bg-gray-200/90 bg-gray-200 hover:shadow-md active:shadow-none p-2 rounded-md" />
+        <div className="flex bg-neutral-300 dark:bg-neutral-700 py-3 px-5 rounded-md items-center justify-between">
+          <HomeButton className="block text-neutral-700 hover:text-neutral-700 hover:bg-neutral-200/90 bg-neutral-200 dark:hover:bg-neutral-800/90 dark:bg-neutral-800 hover:shadow-md active:shadow-none p-2 rounded-md" />
+          <div className="w-8 h-8 rounded-full p-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-600 dark:hover:bg-neutral-500 hover:cursor-pointer">
+            <ThemeSwitch />
+          </div>
         </div>
 
         <div
@@ -53,7 +57,10 @@ const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMe
                     href={`#rozdil_${dataItem.id}`}
                     id={`item_m_${dataItem.id}`}
                     onClick={() => handleClick()}
-                    className={clsx(index === 0 && 'font-bold', 'block py-1 hover:text-slate-900 ')}
+                    className={clsx(
+                      index === 0 && 'font-bold',
+                      'block py-1 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100',
+                    )}
                   >
                     {decode(dataItem.rozdil)}
                   </a>
