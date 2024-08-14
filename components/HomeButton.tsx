@@ -1,13 +1,16 @@
 'use client';
 
-import { HomeIcon } from '@radix-ui/react-icons';
+import { FaHome } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 
 export default function HomeButton({ className }: { className?: string }) {
   const router = useRouter();
 
-  const buttonStyle = twMerge('hidden md:block text-neutral-600 hover:text-neutral-500', className);
+  const buttonStyle = twMerge(
+    'hidden md:block text-neutral-600 hover:text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-300',
+    className,
+  );
 
   function handleClick() {
     document.body.classList.remove('overflow-hidden');
@@ -22,7 +25,7 @@ export default function HomeButton({ className }: { className?: string }) {
       onClick={handleClick}
       title="Повернутися на головну сторінку"
     >
-      <HomeIcon width="24" height="24" />
+      <FaHome className="text-2xl" />
     </button>
   );
 }

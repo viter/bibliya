@@ -23,7 +23,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
     <div
       id="tekst"
       ref={ref}
-      className="text-justify text-neutral-800 bg-neutral-100 text-lg md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 md:px-10 pt-0 md:inset-0 md:overflow-y-auto md:fixed shadow-lg"
+      className="leading-relaxed text-justify text-neutral-800 dark:text-neutral-300  bg-neutral-100 dark:bg-neutral-700 text-lg md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-[120px] p-5 md:px-10 pt-0 md:inset-0 md:overflow-y-auto md:fixed shadow-lg dark:shadow-neutral-950"
       onTouchStart={(e: any) => onTouchStart(e)}
       onTouchEnd={(e: any) => onTouchEnd(e)}
     >
@@ -37,7 +37,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
         return (
           <div key={`${dataItem.id}r2`}>
             <div id={`rozdil_${dataItem.id}`} className="rozdil"></div>
-            <p className="bg-neutral-100 font-bold pt-6 pb-6 mb-0 top-0 md:sticky">
+            <p className="leading-normal bg-neutral-100 dark:bg-neutral-700 font-bold pt-6 pb-6 mb-0 top-0 md:sticky">
               {decode(dataItem.rozdil)}
             </p>
             <p className="mb-16">
@@ -47,6 +47,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
                   'font-arnold',
                   'text-[38px]',
                   'text-red-500',
+                  'dark:text-red-400',
                   'float-left',
                   'block',
                   'mr-2',

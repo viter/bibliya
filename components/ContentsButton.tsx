@@ -1,16 +1,12 @@
 'use client';
 
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 export default function ContentsButton({ handleClick }: { handleClick: () => void }) {
   return (
-    <button
-      id="contentButton"
-      type="button"
-      className="md:hidden text-slate-400 hover:text-slate-300"
+    <GiHamburgerMenu
+      className="md:hidden text-2xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-500 dark:hover:text-neutral-300 cursor-pointer"
       onClick={handleClick}
-    >
-      <HamburgerMenuIcon width="24" height="24" />
-    </button>
+    />
   );
 }
