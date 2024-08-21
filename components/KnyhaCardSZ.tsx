@@ -11,7 +11,7 @@ export default function KnyhaCardSZ() {
           {Object.entries(knyhySZ[0]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -22,7 +22,7 @@ export default function KnyhaCardSZ() {
           {Object.entries(knyhySZ[1]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -33,7 +33,7 @@ export default function KnyhaCardSZ() {
           {Object.entries(knyhySZ[2]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -46,7 +46,7 @@ export default function KnyhaCardSZ() {
           {Object.entries(knyhySZ[3]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}

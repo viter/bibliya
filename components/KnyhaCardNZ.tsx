@@ -12,7 +12,7 @@ export default function KnyhaCardNZ() {
           {Object.entries(knyhyNZ[0]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -20,9 +20,9 @@ export default function KnyhaCardNZ() {
 
         <ul className="text-neutral-700 dark:text-neutral-100 font-bold pb-3">
           {Object.entries(knyhyNZ[1]).map((k, i: number) => (
-            <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
+            <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -34,7 +34,7 @@ export default function KnyhaCardNZ() {
           {Object.entries(knyhyNZ[2]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? decode(k[1][0]) : decode(k[1])}
+                {Array.isArray(k[1].title) ? decode(k[1].title[0]) : decode(k[1].title)}
               </Link>
             </li>
           ))}
@@ -42,11 +42,11 @@ export default function KnyhaCardNZ() {
       </div>
 
       <div>
-        <ul className="text-neutral-800 dark:text-neutral-300 pl-3 pb-3 italic">
+        <ul className="text-neutral-800 dark:text-neutral-300 ml-3 pb-3 italic">
           {Object.entries(knyhyNZ[3]).map((k, i: number) => (
-            <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
+            <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? decode(k[1].title[0]) : decode(k[1].title)}
               </Link>
             </li>
           ))}
@@ -55,9 +55,9 @@ export default function KnyhaCardNZ() {
         <h1 className="text-neutral-700 dark:text-neutral-100 ml-3 italic">Ап. Петра:</h1>
         <ul className="text-neutral-800 dark:text-neutral-300 pl-6 pb-3">
           {Object.entries(knyhyNZ[4]).map((k, i: number) => (
-            <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
+            <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -68,7 +68,7 @@ export default function KnyhaCardNZ() {
           {Object.entries(knyhyNZ[5]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -78,7 +78,7 @@ export default function KnyhaCardNZ() {
           {Object.entries(knyhyNZ[6]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
@@ -88,7 +88,7 @@ export default function KnyhaCardNZ() {
           {Object.entries(knyhyNZ[7]).map((k, i: number) => (
             <li key={i} className="hover:bg-neutral-300 dark:hover:bg-neutral-700 px-2 rounded-sm">
               <Link href={`/${k[0]}`} scroll={false}>
-                {Array.isArray(k[1]) ? k[1][0] : k[1]}
+                {Array.isArray(k[1].title) ? k[1].title[0] : k[1].title}
               </Link>
             </li>
           ))}
