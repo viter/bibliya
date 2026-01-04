@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, type JSX } from 'react';
 import { Checkbox } from './ui/checkbox';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 interface SearchDialogProps {
   showDialog: boolean;
@@ -47,6 +48,8 @@ const formSchema = z.object({
 export default function SearchDialog({ showDialog, onClose }: SearchDialogProps) {
   const dialogRef = useRef<null | HTMLDialogElement>(null);
 
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,13 +75,24 @@ export default function SearchDialog({ showDialog, onClose }: SearchDialogProps)
   }
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    const searchParams = new URLSearchParams();
+    searchParams.append('q', data.search);
+    if (data.zavit?.length) {
+      searchParams.append('zavit', data.zavit[0]);
+    }
+    if (data.knyha?.length) {
+      data.knyha.forEach((kn) => {
+        searchParams.append('k', kn);
+      });
+    }
+
+    router.push(`/poshuk?${searchParams.toString()}`);
   }
 
   const dialog: JSX.Element | null = showDialog ? (
     <dialog
       ref={dialogRef}
-      className="md:w-1/2 text-xs md:text-base bg-neutral-300 dark:bg-neutral-700 rounded-md shadow-lg backdrop:backdrop-blur outline-none"
+      className="md:w-1/2 text-xs md:text-base bg-neutral-300 dark:bg-neutral-700 rounded-md shadow-lg backdrop:backdrop-blur-sm outline-hidden"
       onClick={(e) => {
         if (e.target === dialogRef.current) {
           closeDialog();
@@ -99,7 +113,7 @@ export default function SearchDialog({ showDialog, onClose }: SearchDialogProps)
                         {...field}
                         id="search"
                         className={cn(
-                          'focus:outline-none border-0 outline-none shadow-md rounded-lg dark:bg-neutral-600',
+                          'focus:outline-hidden border-0 outline-hidden shadow-md rounded-lg dark:bg-neutral-600',
                           form.formState.errors.search &&
                             'bg-red-100 dark:border dark:border-red-500',
                         )}

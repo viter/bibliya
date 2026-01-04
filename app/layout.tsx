@@ -4,6 +4,8 @@ import './globals.css';
 import clsx from 'clsx';
 import { Providers } from './providers';
 
+import type { JSX } from "react";
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
