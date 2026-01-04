@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import type { JSX } from "react";
+
 const title = {
   sz: 'Старий Завіт',
   nz: 'Новий Завіт',

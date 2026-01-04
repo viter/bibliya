@@ -1,11 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
 model bibliya {
@@ -14,6 +13,8 @@ model bibliya {
   rozdil String @db.MediumText
   text   String @db.MediumText
   zavit  String @default("sz") @db.VarChar(255)
+
+  @@fulltext([text])
 }
 
 model katehoriyi {
