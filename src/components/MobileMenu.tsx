@@ -3,23 +3,29 @@
 import { Data } from '@/lib/types';
 import { decode } from 'html-entities';
 import clsx from 'clsx';
-import { forwardRef } from 'react';
+import { forwardRef, TouchEventHandler } from 'react';
 import HomeButton from '@/components/HomeButton';
 import ThemeSwitch from './ThemeSwitch';
 
 interface MobileMenuProps {
   data: Data[];
   handleClick: () => void;
-  onTouchStart: (e: TouchEvent) => void;
-  onTouchEnd: (e: TouchEvent) => void;
+  onTouchStart: TouchEventHandler<HTMLDivElement>;
+  onTouchEnd: TouchEventHandler<HTMLDivElement>;
 }
 
 const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMenu(
   { data, handleClick, onTouchStart, onTouchEnd },
   ref,
 ) {
-  function handleMainDivClick(e: any) {
-    if (e.target.getAttribute('id') === 'main') {
+  function handleMainDivClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.currentTarget.getAttribute('id') === 'main') {
+      handleClick();
+    }
+  }
+
+  function handleMainDivTouch(e: React.TouchEvent<HTMLDivElement>) {
+    if (e.currentTarget.id === 'main') {
       handleClick();
     }
   }
@@ -29,7 +35,7 @@ const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMe
       id="main"
       className="w-full z-20 h-full top-0 fixed backdrop-blur-sm bg-neutral/30 shadow-2xl"
       onClick={handleMainDivClick}
-      onTouchStart={handleMainDivClick}
+      onTouchStart={handleMainDivTouch}
     >
       <div
         id="mobileMenu"
@@ -46,8 +52,8 @@ const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMe
         <div
           id="contentMobile"
           className="fixed inset-0 top-22.5 right-auto w-2/3 px-8 overflow-y-auto"
-          onTouchStart={(e: any) => onTouchStart(e)}
-          onTouchEnd={(e: any) => onTouchEnd(e)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <nav className="lg:text-sm lg:leading-6 relative">
             <ul id="itemsList" className="leading-6">

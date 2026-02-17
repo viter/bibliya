@@ -64,6 +64,7 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   function onClick() {
     setShowMenu(!showMenu);
     highlightMenuItem();
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     showMenu
       ? document.body.classList.remove('overflow-hidden')
       : document.body.classList.add('overflow-hidden');
@@ -81,12 +82,13 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   let startX = 0;
   let endX = 0;
 
-  function touchStart(e: TouchEvent) {
+  function touchStart(e: React.TouchEvent<HTMLDivElement>) {
     const touches = e.changedTouches;
+    // eslint-disable-next-line react-hooks/immutability
     startX = touches[0].clientX;
   }
 
-  function touchEnd(e: TouchEvent) {
+  function touchEnd(e: React.TouchEvent<HTMLDivElement>) {
     const touches = e.changedTouches;
     endX = touches[0].clientX;
 

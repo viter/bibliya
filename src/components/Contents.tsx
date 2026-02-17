@@ -10,7 +10,7 @@ const Contents = forwardRef<HTMLDivElement, { data: Data[] }>(function Contents(
       <div
         id="content"
         ref={ref}
-        className="hidden md:block md:left-[max(0px,calc(50%-45rem))] 3xl:w-[25rem] fixed z-20 inset-0 top-30 right-auto w-58 lg:w-78 px-8"
+        className="hidden md:block md:left-[max(0px,calc(50%-45rem))] 3xl:w-[25rem] fixed z-20 inset-0 top-30 right-auto w-58 lg:w-78 px-8 mb-5"
       >
         <ScrollArea className="h-full">
           <nav>

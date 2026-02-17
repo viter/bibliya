@@ -2,13 +2,13 @@ import clsx from 'clsx';
 import { decode } from 'html-entities';
 import localFont from 'next/font/local';
 import { Data } from '@/lib/types';
-import { forwardRef } from 'react';
+import { forwardRef, TouchEventHandler } from 'react';
 import { ScrollArea } from './ui/scroll-area';
 
 type ChaptersProps = {
   data: Data[];
-  onTouchStart: (e: TouchEvent) => void;
-  onTouchEnd: (e: TouchEvent) => void;
+  onTouchStart: TouchEventHandler<HTMLDivElement>;
+  onTouchEnd: TouchEventHandler<HTMLDivElement>;
 };
 
 const arnoldFont = localFont({
@@ -21,13 +21,13 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
   ref,
 ) {
   return (
-    <div className="leading-relaxed text-justify text-neutral-800 dark:text-neutral-300   text-lg md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-30 p-5 md:px-10 pt-0 md:inset-0 md:fixed ">
+    <div className="text-justify text-neutral-800 dark:text-neutral-200 text-lg md:left-auto md:right-9 md:max-w-[65%] xl:right-20 2xl:left-[max(0px,calc(70%-45rem))] 2xl:max-w-5xl mt-30 md:py-6 md:pl-6 md:pr-2 md:inset-0 md:fixed mb-5 bg-cyan-100 dark:bg-cyan-900 shadow-lg rounded-md">
       <ScrollArea
         className="h-full pr-4"
         id="tekst"
         ref={ref}
-        onTouchStart={(e: any) => onTouchStart(e)}
-        onTouchEnd={(e: any) => onTouchEnd(e)}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
       >
         {data.map((dataItem) => {
           const text = decode(dataItem.text).split(' ');
