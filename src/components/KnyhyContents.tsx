@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import localFont from 'next/font/local';
 import { useState, useEffect } from 'react';
 import ThemeSwitch from './ThemeSwitch';
+import PaletteSwitch from './PaletteSwitch';
 import SearchBtn from './SearchBtn';
 import SearchDialog from './SearchDialog';
 
@@ -25,26 +26,29 @@ export default function KnyhyContents() {
     setShowSearchDialog(false);
   }
   return (
-    <>
+    <div className="p-3">
       <SearchDialog showDialog={showSearchDialog} onClose={handleCloseDialog} />
-      <header className="flex justify-between items-center mb-10 px-8 xl:px-0">
+      <header className="md:flex justify-between items-center mb-10 px-8 xl:px-0">
         <div>
           <h1
             className={clsx(
               evangelieFont.variable,
-              'font-evangelie text-neutral-600 dark:text-neutral-300 text-5xl lg:text-7xl',
+              'font-evangelie text-foreground text-5xl lg:text-7xl',
             )}
           >
             Святе Письмо
           </h1>
-          <h2 className="text-gray-700 dark:text-gray-400 pl-2 mt-1 text-sm lg:text-base">
+          <h2 className="text-muted-foreground pl-2 mt-1 text-sm lg:text-base mb-5">
             в перекладі о.Івана Хоменка
           </h2>
         </div>
-        <div className="flex gap-5">
+        <div className="flex items-center gap-5">
           <SearchBtn click={handleSearchClick} />
-          <div className="w-8 h-8 rounded-full p-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-cyan-800 dark:hover:bg-neutral-600 hover:cursor-pointer">
-            <ThemeSwitch />
+          <div className="flex items-center gap-1">
+            <PaletteSwitch />
+            <div className="w-8 h-8 rounded-full p-1 bg-secondary hover:bg-accent hover:cursor-pointer">
+              <ThemeSwitch />
+            </div>
           </div>
         </div>
       </header>
@@ -52,6 +56,6 @@ export default function KnyhyContents() {
         <KnyhaCardSZ />
         <KnyhaCardNZ />
       </div>
-    </>
+    </div>
   );
 }

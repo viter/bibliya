@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -7,33 +7,6 @@
   --font-arnold: var(--font-arnold);
   --font-lombardina: var(--font-lombardina);
   --font-evangelie: var(--font-evangelie);
-
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -89,67 +62,6 @@
   }
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 30%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0.6rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-  }
-
-  .dark {
-    --background: 0 0% 70%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-/*
-  ---break---
-*/
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -173,104 +85,462 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 /*
-  ---break---
+  Reader-selectable color palettes, keyed by [data-palette] on <html>.
+  The bare :root/.dark rules are the fallback (= "midnight" palette) used
+  before client JS has applied the visitor's saved choice. --destructive
+  doesn't vary by palette, so it's only defined here.
 */
-
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --destructive-foreground: oklch(0.985 0 0);
+  --background: #eef0f3;
+  --foreground: #161c26;
+  --card: #f8f9fb;
+  --card-foreground: #161c26;
+  --popover: #f8f9fb;
+  --popover-foreground: #161c26;
+  --primary: #1f3a5f;
+  --primary-foreground: #f8f9fb;
+  --secondary: #dee3e9;
+  --secondary-foreground: #161c26;
+  --muted: #dee3e9;
+  --muted-foreground: #5c6673;
+  --accent: #cfd7e0;
+  --accent-foreground: #161c26;
+  --border: #d3dae1;
+  --input: #d3dae1;
+  --ring: #1f3a5f;
 }
-
-/*
-  ---break---
-*/
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --destructive-foreground: oklch(0.145 0 0);
+  --background: #0b0e14;
+  --foreground: #dde3ec;
+  --card: #121722;
+  --card-foreground: #dde3ec;
+  --popover: #121722;
+  --popover-foreground: #dde3ec;
+  --primary: #5b8fc9;
+  --primary-foreground: #0b0e14;
+  --secondary: #1a212e;
+  --secondary-foreground: #dde3ec;
+  --muted: #1a212e;
+  --muted-foreground: #7c8798;
+  --accent: #212a3a;
+  --accent-foreground: #dde3ec;
+  --border: #262f3d;
+  --input: #262f3d;
+  --ring: #5b8fc9;
 }
 
-/*
-  ---break---
-*/
+/* Тепла пергамена */
+[data-palette='parchment'] {
+  --background: #f5efe3;
+  --foreground: #3b2f26;
+  --card: #fbf7ed;
+  --card-foreground: #3b2f26;
+  --popover: #fbf7ed;
+  --popover-foreground: #3b2f26;
+  --primary: #8b5e34;
+  --primary-foreground: #fbf7ed;
+  --secondary: #ede3d0;
+  --secondary-foreground: #3b2f26;
+  --muted: #ede3d0;
+  --muted-foreground: #8a7a66;
+  --accent: #e4d6bc;
+  --accent-foreground: #3b2f26;
+  --border: #e0d3b8;
+  --input: #e0d3b8;
+  --ring: #8b5e34;
+}
+[data-palette='parchment'].dark {
+  --background: #22201b;
+  --foreground: #d6cbae;
+  --card: #2a2721;
+  --card-foreground: #d6cbae;
+  --popover: #2a2721;
+  --popover-foreground: #d6cbae;
+  --primary: #c9a26b;
+  --primary-foreground: #22201b;
+  --secondary: #34302a;
+  --secondary-foreground: #d6cbae;
+  --muted: #34302a;
+  --muted-foreground: #a89a82;
+  --accent: #3d392f;
+  --accent-foreground: #d6cbae;
+  --border: #3d392f;
+  --input: #3d392f;
+  --ring: #c9a26b;
+}
+
+/* Грифельний */
+[data-palette='slate'] {
+  --background: #eef1f4;
+  --foreground: #20242b;
+  --card: #f7f9fa;
+  --card-foreground: #20242b;
+  --popover: #f7f9fa;
+  --popover-foreground: #20242b;
+  --primary: #3e5c76;
+  --primary-foreground: #f7f9fa;
+  --secondary: #e1e7eb;
+  --secondary-foreground: #20242b;
+  --muted: #e1e7eb;
+  --muted-foreground: #66727c;
+  --accent: #d3dbe2;
+  --accent-foreground: #20242b;
+  --border: #d9e0e6;
+  --input: #d9e0e6;
+  --ring: #3e5c76;
+}
+[data-palette='slate'].dark {
+  --background: #12161c;
+  --foreground: #dce2e8;
+  --card: #191e25;
+  --card-foreground: #dce2e8;
+  --popover: #191e25;
+  --popover-foreground: #dce2e8;
+  --primary: #7fa6c9;
+  --primary-foreground: #12161c;
+  --secondary: #212831;
+  --secondary-foreground: #dce2e8;
+  --muted: #212831;
+  --muted-foreground: #8592a0;
+  --accent: #29323d;
+  --accent-foreground: #dce2e8;
+  --border: #2a323c;
+  --input: #2a323c;
+  --ring: #7fa6c9;
+}
+
+/* Лісовий пергамен */
+[data-palette='forest'] {
+  --background: #edf0e6;
+  --foreground: #1f2a20;
+  --card: #f6f8f1;
+  --card-foreground: #1f2a20;
+  --popover: #f6f8f1;
+  --popover-foreground: #1f2a20;
+  --primary: #3f6e52;
+  --primary-foreground: #f6f8f1;
+  --secondary: #e1e7d5;
+  --secondary-foreground: #1f2a20;
+  --muted: #e1e7d5;
+  --muted-foreground: #66735f;
+  --accent: #d1ddc0;
+  --accent-foreground: #1f2a20;
+  --border: #d8e0ce;
+  --input: #d8e0ce;
+  --ring: #3f6e52;
+}
+[data-palette='forest'].dark {
+  --background: #151a16;
+  --foreground: #d6ded2;
+  --card: #1c231d;
+  --card-foreground: #d6ded2;
+  --popover: #1c231d;
+  --popover-foreground: #d6ded2;
+  --primary: #7fa98b;
+  --primary-foreground: #151a16;
+  --secondary: #242e25;
+  --secondary-foreground: #d6ded2;
+  --muted: #242e25;
+  --muted-foreground: #869180;
+  --accent: #2e3d30;
+  --accent-foreground: #d6ded2;
+  --border: #2c3a2c;
+  --input: #2c3a2c;
+  --ring: #7fa98b;
+}
+
+/* Патина */
+[data-palette='verdigris'] {
+  --background: #eaf1ef;
+  --foreground: #182524;
+  --card: #f5faf9;
+  --card-foreground: #182524;
+  --popover: #f5faf9;
+  --popover-foreground: #182524;
+  --primary: #3f7d72;
+  --primary-foreground: #f5faf9;
+  --secondary: #d9e6e3;
+  --secondary-foreground: #182524;
+  --muted: #d9e6e3;
+  --muted-foreground: #5c716e;
+  --accent: #c9dad6;
+  --accent-foreground: #182524;
+  --border: #cde0dc;
+  --input: #cde0dc;
+  --ring: #3f7d72;
+}
+[data-palette='verdigris'].dark {
+  --background: #0f1615;
+  --foreground: #d3e5e1;
+  --card: #16201e;
+  --card-foreground: #d3e5e1;
+  --popover: #16201e;
+  --popover-foreground: #d3e5e1;
+  --primary: #6bbca9;
+  --primary-foreground: #0f1615;
+  --secondary: #1e2b28;
+  --secondary-foreground: #d3e5e1;
+  --muted: #1e2b28;
+  --muted-foreground: #85a29c;
+  --accent: #263531;
+  --accent-foreground: #d3e5e1;
+  --border: #2a3c38;
+  --input: #2a3c38;
+  --ring: #6bbca9;
+}
+
+/* Опівнічне перо (default; duplicates the :root/.dark fallback above) */
+[data-palette='midnight'] {
+  --background: #eef0f3;
+  --foreground: #161c26;
+  --card: #f8f9fb;
+  --card-foreground: #161c26;
+  --popover: #f8f9fb;
+  --popover-foreground: #161c26;
+  --primary: #1f3a5f;
+  --primary-foreground: #f8f9fb;
+  --secondary: #dee3e9;
+  --secondary-foreground: #161c26;
+  --muted: #dee3e9;
+  --muted-foreground: #5c6673;
+  --accent: #cfd7e0;
+  --accent-foreground: #161c26;
+  --border: #d3dae1;
+  --input: #d3dae1;
+  --ring: #1f3a5f;
+}
+[data-palette='midnight'].dark {
+  --background: #0b0e14;
+  --foreground: #dde3ec;
+  --card: #121722;
+  --card-foreground: #dde3ec;
+  --popover: #121722;
+  --popover-foreground: #dde3ec;
+  --primary: #5b8fc9;
+  --primary-foreground: #0b0e14;
+  --secondary: #1a212e;
+  --secondary-foreground: #dde3ec;
+  --muted: #1a212e;
+  --muted-foreground: #7c8798;
+  --accent: #212a3a;
+  --accent-foreground: #dde3ec;
+  --border: #262f3d;
+  --input: #262f3d;
+  --ring: #5b8fc9;
+}
+
+/* Візантія */
+[data-palette='byzantine'] {
+  --background: #f2ead8;
+  --foreground: #241914;
+  --card: #f9f2e2;
+  --card-foreground: #241914;
+  --popover: #f9f2e2;
+  --popover-foreground: #241914;
+  --primary: #7a1f2b;
+  --primary-foreground: #f9f2e2;
+  --secondary: #e9dcc0;
+  --secondary-foreground: #241914;
+  --muted: #e9dcc0;
+  --muted-foreground: #8a7a5c;
+  --accent: #dccbaa;
+  --accent-foreground: #241914;
+  --border: #e3d6b8;
+  --input: #e3d6b8;
+  --ring: #7a1f2b;
+}
+[data-palette='byzantine'].dark {
+  --background: #1c1512;
+  --foreground: #e4d6b8;
+  --card: #241b17;
+  --card-foreground: #e4d6b8;
+  --popover: #241b17;
+  --popover-foreground: #e4d6b8;
+  --primary: #c9a227;
+  --primary-foreground: #1c1512;
+  --secondary: #2c2119;
+  --secondary-foreground: #e4d6b8;
+  --muted: #2c2119;
+  --muted-foreground: #a08f6e;
+  --accent: #352922;
+  --accent-foreground: #e4d6b8;
+  --border: #3a2c22;
+  --input: #3a2c22;
+  --ring: #c9a227;
+}
+
+/* Вечірнє індиго */
+[data-palette='indigo'] {
+  --background: #eeedf5;
+  --foreground: #262138;
+  --card: #f7f6fb;
+  --card-foreground: #262138;
+  --popover: #f7f6fb;
+  --popover-foreground: #262138;
+  --primary: #4b3f78;
+  --primary-foreground: #f7f6fb;
+  --secondary: #e2e0f0;
+  --secondary-foreground: #262138;
+  --muted: #e2e0f0;
+  --muted-foreground: #6e6690;
+  --accent: #d4d0e6;
+  --accent-foreground: #262138;
+  --border: #dbd8ea;
+  --input: #dbd8ea;
+  --ring: #4b3f78;
+}
+[data-palette='indigo'].dark {
+  --background: #17151f;
+  --foreground: #ddd9ea;
+  --card: #1e1b29;
+  --card-foreground: #ddd9ea;
+  --popover: #1e1b29;
+  --popover-foreground: #ddd9ea;
+  --primary: #9683c9;
+  --primary-foreground: #17151f;
+  --secondary: #292435;
+  --secondary-foreground: #ddd9ea;
+  --muted: #292435;
+  --muted-foreground: #9891ae;
+  --accent: #322c40;
+  --accent-foreground: #ddd9ea;
+  --border: #332d42;
+  --input: #332d42;
+  --ring: #9683c9;
+}
+
+/* Рожевий рукопис */
+[data-palette='rose'] {
+  --background: #f3ebe9;
+  --foreground: #362524;
+  --card: #faf3f1;
+  --card-foreground: #362524;
+  --popover: #faf3f1;
+  --popover-foreground: #362524;
+  --primary: #9c5257;
+  --primary-foreground: #faf3f1;
+  --secondary: #ecdedb;
+  --secondary-foreground: #362524;
+  --muted: #ecdedb;
+  --muted-foreground: #8a6e6a;
+  --accent: #ddc9c4;
+  --accent-foreground: #362524;
+  --border: #e4d3cf;
+  --input: #e4d3cf;
+  --ring: #9c5257;
+}
+[data-palette='rose'].dark {
+  --background: #1c1414;
+  --foreground: #ead9d5;
+  --card: #241a1a;
+  --card-foreground: #ead9d5;
+  --popover: #241a1a;
+  --popover-foreground: #ead9d5;
+  --primary: #cf8f8f;
+  --primary-foreground: #1c1414;
+  --secondary: #2e2121;
+  --secondary-foreground: #ead9d5;
+  --muted: #2e2121;
+  --muted-foreground: #ab8d89;
+  --accent: #382828;
+  --accent-foreground: #ead9d5;
+  --border: #3c2b2a;
+  --input: #3c2b2a;
+  --ring: #cf8f8f;
+}
+
+/* Чорнило і папір */
+[data-palette='ink'] {
+  --background: #f4f4f2;
+  --foreground: #1c1c1a;
+  --card: #fbfbfa;
+  --card-foreground: #1c1c1a;
+  --popover: #fbfbfa;
+  --popover-foreground: #1c1c1a;
+  --primary: #3a3a36;
+  --primary-foreground: #fbfbfa;
+  --secondary: #e6e6e3;
+  --secondary-foreground: #1c1c1a;
+  --muted: #e6e6e3;
+  --muted-foreground: #737169;
+  --accent: #d8d8d3;
+  --accent-foreground: #1c1c1a;
+  --border: #dcdcd8;
+  --input: #dcdcd8;
+  --ring: #3a3a36;
+}
+[data-palette='ink'].dark {
+  --background: #131312;
+  --foreground: #e9e8e4;
+  --card: #1b1b19;
+  --card-foreground: #e9e8e4;
+  --popover: #1b1b19;
+  --popover-foreground: #e9e8e4;
+  --primary: #c9c7bf;
+  --primary-foreground: #131312;
+  --secondary: #262624;
+  --secondary-foreground: #e9e8e4;
+  --muted: #262624;
+  --muted-foreground: #96948c;
+  --accent: #302f2c;
+  --accent-foreground: #e9e8e4;
+  --border: #333330;
+  --input: #333330;
+  --ring: #c9c7bf;
+}
+
+/* Оливковий скрипторій */
+[data-palette='olive'] {
+  --background: #eef0e2;
+  --foreground: #292b1c;
+  --card: #f6f7ee;
+  --card-foreground: #292b1c;
+  --popover: #f6f7ee;
+  --popover-foreground: #292b1c;
+  --primary: #6b7a3f;
+  --primary-foreground: #f6f7ee;
+  --secondary: #e2e5d0;
+  --secondary-foreground: #292b1c;
+  --muted: #e2e5d0;
+  --muted-foreground: #6d7057;
+  --accent: #d3d8bc;
+  --accent-foreground: #292b1c;
+  --border: #d9ddc4;
+  --input: #d9ddc4;
+  --ring: #6b7a3f;
+}
+[data-palette='olive'].dark {
+  --background: #16180f;
+  --foreground: #dde0cc;
+  --card: #1d2015;
+  --card-foreground: #dde0cc;
+  --popover: #1d2015;
+  --popover-foreground: #dde0cc;
+  --primary: #a6b56a;
+  --primary-foreground: #16180f;
+  --secondary: #262a1a;
+  --secondary-foreground: #dde0cc;
+  --muted: #262a1a;
+  --muted-foreground: #8f9578;
+  --accent: #2f3420;
+  --accent-foreground: #dde0cc;
+  --border: #33381f;
+  --input: #33381f;
+  --ring: #a6b56a;
+}
 
 @layer base {
   * {

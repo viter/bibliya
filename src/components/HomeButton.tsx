@@ -8,7 +8,7 @@ export default function HomeButton({ className }: { className?: string }) {
   const router = useRouter();
 
   const buttonStyle = twMerge(
-    'hidden md:block text-neutral-600 hover:text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-300',
+    'hidden md:block text-muted-foreground hover:text-foreground',
     className,
   );
 
