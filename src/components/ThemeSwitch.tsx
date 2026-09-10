@@ -27,7 +27,7 @@ export default function ThemeSwitch() {
   if (resolvedTheme === 'dark') {
     return (
       <SunIcon
-        className="text-2xl text-neutral-700 dark:text-neutral-100"
+        className="text-2xl text-foreground"
         onClick={() => setTheme('light')}
       />
     );
@@ -36,7 +36,7 @@ export default function ThemeSwitch() {
   if (resolvedTheme === 'light') {
     return (
       <MoonIcon
-        className="text-2xl text-neutral-700 dark:text-neutral-100"
+        className="text-2xl text-foreground"
         onClick={() => setTheme('dark')}
       />
     );

@@ -4,8 +4,12 @@ import './globals.css';
 import { Providers } from './providers';
 import type { JSX } from 'react';
 import { cn } from '@/lib/utils';
+import { PALETTES, DEFAULT_PALETTE, PALETTE_STORAGE_KEY } from '@/lib/palettes';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const paletteKeys = JSON.stringify(PALETTES.map((p) => p.key));
+const setPaletteScript = `(function(){try{var k=${paletteKeys};var s=localStorage.getItem('${PALETTE_STORAGE_KEY}');document.documentElement.setAttribute('data-palette',k.indexOf(s)!==-1?s:'${DEFAULT_PALETTE}');}catch(e){}})();`;
 
 export const metadata: Metadata = {
   title: 'Святе Письмо',
@@ -19,14 +23,10 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          inter.className,
-          'bg-linear-to-t h-screen bg-fixed from-emerald-200 to-sky-200 dark:from-emerald-950 dark:to-sky-950',
-        )}
-      >
+      <body className={cn(inter.className, 'h-screen')}>
+        <script dangerouslySetInnerHTML={{ __html: setPaletteScript }} />
         <Providers>
-          <div className="md:w-200 lg:w-262.5 relative md:mx-auto">{children}</div>
+          <div className="md:w-190 lg:w-250 xl:w-7xl 2xl:w-350 relative md:mx-auto">{children}</div>
         </Providers>
       </body>
     </html>

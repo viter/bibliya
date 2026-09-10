@@ -8,9 +8,10 @@ import { cn } from '@/lib/utils';
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
->(({ className, children, ...props }, ref) => (
+>(({ className, children, type = 'always', ...props }, ref) => (
   <ScrollAreaPrimitive.Root
     ref={ref}
+    type={type}
     className={cn('relative overflow-hidden', className)}
     {...props}
   >
@@ -31,14 +32,14 @@ const ScrollBar = React.forwardRef<
     ref={ref}
     orientation={orientation}
     className={cn(
-      'flex touch-none select-none transition-colors bg-slate-200 dark:bg-cyan-950',
+      'flex touch-none select-none transition-colors bg-muted',
       orientation === 'vertical' && 'h-full w-1.5 border-l border-l-transparent p-px',
       orientation === 'horizontal' && 'h-1.5 flex-col border-t border-t-transparent p-px',
       className,
     )}
     {...props}
   >
-    <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-neutral-500 dark:bg-neutral-300" />
+    <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-muted-foreground" />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
 ));
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;

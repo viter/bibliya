@@ -52,21 +52,38 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
         ?.querySelector('[data-radix-scroll-area-viewport]')
         ?.addEventListener('scroll', scroller.bind(args));
     } else {
-      document.addEventListener('scroll', scrollerMobile.bind({ currentItem }));
+      chaptersDiv
+        ?.querySelector('[data-radix-scroll-area-viewport]')
+        ?.addEventListener('scroll', scrollerMobile.bind({ currentItem }));
     }
 
     return () => {
       chaptersDiv?.removeEventListener('scroll', scroller.bind(args));
-      document.removeEventListener('scroll', scrollerMobile);
+      chaptersDiv?.removeEventListener('scroll', scrollerMobile);
     };
   }, [width]);
 
+  function scrollToChapter(id: string) {
+    const scrollViewport = chaptersRef.current?.querySelector('[data-radix-scroll-area-viewport]');
+    const target = document.getElementById(`rozdil_${id}`);
+
+    if (scrollViewport && target) {
+      scrollViewport.scrollTo({
+        top: target.offsetTop,
+        behavior: 'instant',
+      });
+    }
+  }
+
   function onClick() {
-    setShowMenu(!showMenu);
+    const next = !showMenu;
+    setShowMenu(next);
     highlightMenuItem();
-    showMenu
-      ? document.body.classList.remove('overflow-hidden')
-      : document.body.classList.add('overflow-hidden');
+    if (next) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
   }
 
   function swipeMenuIn() {
@@ -79,28 +96,40 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   }
 
   let startX = 0;
+  let startY = 0;
   let endX = 0;
+  let endY = 0;
 
-  function touchStart(e: TouchEvent) {
+  function touchStart(e: React.TouchEvent<HTMLDivElement>) {
     const touches = e.changedTouches;
+    // eslint-disable-next-line react-hooks/immutability
     startX = touches[0].clientX;
+    startY = touches[0].clientY;
   }
 
-  function touchEnd(e: TouchEvent) {
+  function touchEnd(e: React.TouchEvent<HTMLDivElement>) {
     const touches = e.changedTouches;
     endX = touches[0].clientX;
+    endY = touches[0].clientY;
 
-    if (endX !== startX) {
-      const swipeLength = Math.abs(endX - startX);
-      const minSwipeLength = width / 3;
-      if (width <= MOBILE_WINDOW_WIDTH && swipeLength >= minSwipeLength) {
-        if (endX >= startX) {
-          swipeMenuIn();
-          document.body.classList.add('overflow-hidden');
-        } else {
-          swipeMenuOut();
-          document.body.classList.remove('overflow-hidden');
-        }
+    const deltaX = endX - startX;
+    const deltaY = endY - startY;
+    const horizontalLength = Math.abs(deltaX);
+    const verticalLength = Math.abs(deltaY);
+    const minSwipeLength = width / 3;
+
+    // Require the gesture to be clearly horizontal so a vertical scroll of the
+    // reading text can never be misread as a swipe that opens/closes the menu.
+    const isHorizontalSwipe =
+      horizontalLength >= minSwipeLength && horizontalLength > verticalLength * 1.5;
+
+    if (width <= MOBILE_WINDOW_WIDTH && isHorizontalSwipe) {
+      if (deltaX >= 0) {
+        swipeMenuIn();
+        document.body.classList.add('overflow-hidden');
+      } else {
+        swipeMenuOut();
+        document.body.classList.remove('overflow-hidden');
       }
     }
   }
@@ -108,6 +137,8 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   function highlightMenuItem() {
     const contentsDiv = mobileMenuRef?.current;
     const activeItem = contentsDiv?.querySelector(`#item_m_${currentItem.current.split('_')[1]}`);
+
+    console.log('///////', currentItem.current);
 
     contentsDiv?.querySelector('nav > ul > li > a.font-bold')?.classList.remove('font-bold');
 
@@ -119,19 +150,20 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   }
 
   return (
-    <>
+    <div className="overflow-hidden h-[calc(100%-1rem)]">
       <KnyhaHeader knyha={knyha} onClick={onClick} />
-      <Contents data={data} ref={contentsRef} />
-      <Chapters data={data} ref={chaptersRef} onTouchStart={touchStart} onTouchEnd={touchEnd} />
+      <div className="flex">
+        <Contents data={data} ref={contentsRef} onChapterClick={scrollToChapter} />
+        <Chapters data={data} ref={chaptersRef} onTouchStart={touchStart} onTouchEnd={touchEnd} />
+      </div>
       <div className={clsx(showMenu ? '' : 'invisible fixed')}>
         <MobileMenu
           data={data}
           ref={mobileMenuRef}
           handleClick={onClick}
-          onTouchStart={touchStart}
-          onTouchEnd={touchEnd}
+          onChapterClick={scrollToChapter}
         />
       </div>
-    </>
+    </div>
   );
 }
