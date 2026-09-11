@@ -5,6 +5,7 @@ import { Providers } from './providers';
 import type { JSX } from 'react';
 import { cn } from '@/lib/utils';
 import { PALETTES, DEFAULT_PALETTE, PALETTE_STORAGE_KEY } from '@/lib/palettes';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <div className="md:w-190 lg:w-250 xl:w-7xl 2xl:w-350 relative md:mx-auto">{children}</div>
         </Providers>
       </body>
+      <GoogleAnalytics gaId="G-PQBFFCK5FQ" />
     </html>
   );
 }
