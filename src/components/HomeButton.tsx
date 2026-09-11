@@ -1,16 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { twMerge } from 'tailwind-merge';
 import { HouseIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function HomeButton({ className }: { className?: string }) {
   const router = useRouter();
 
-  const buttonStyle = twMerge(
-    'hidden md:block text-muted-foreground hover:text-foreground',
-    className,
-  );
+  const buttonStyle = cn('hidden md:block text-muted-foreground hover:text-foreground', className);
 
   function handleClick() {
     document.body.classList.remove('overflow-hidden');

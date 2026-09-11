@@ -43,7 +43,7 @@ export default function KnyhyContents() {
           </h2>
         </div>
         <div className="flex items-center gap-5">
-          <SearchBtn click={handleSearchClick} />
+          {/*<SearchBtn click={handleSearchClick} />*/}
           <div className="flex items-center gap-1">
             <PaletteSwitch />
             <div className="w-8 h-8 rounded-full p-1 bg-secondary hover:bg-accent hover:cursor-pointer">

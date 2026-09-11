@@ -49,11 +49,11 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
       setShowMenu(false);
       document.body.classList.remove('overflow-hidden');
       chaptersDiv
-        ?.querySelector('[data-radix-scroll-area-viewport]')
+        ?.querySelector('[data-slot=scroll-area-viewport]')
         ?.addEventListener('scroll', scroller.bind(args));
     } else {
       chaptersDiv
-        ?.querySelector('[data-radix-scroll-area-viewport]')
+        ?.querySelector('[data-slot=scroll-area-viewport]')
         ?.addEventListener('scroll', scrollerMobile.bind({ currentItem }));
     }
 
@@ -64,7 +64,7 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   }, [width]);
 
   function scrollToChapter(id: string) {
-    const scrollViewport = chaptersRef.current?.querySelector('[data-radix-scroll-area-viewport]');
+    const scrollViewport = chaptersRef.current?.querySelector('[data-slot=scroll-area-viewport]');
     const target = document.getElementById(`rozdil_${id}`);
 
     if (scrollViewport && target) {
