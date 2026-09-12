@@ -62,6 +62,8 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
         text: {
           search: phrase,
         },
+        ...(zavit ? { zavit } : {}),
+        ...(knyha && knyha.length > 0 ? { knyha: { in: knyha } } : {}),
       },
     });
 
@@ -75,8 +77,8 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
         <div key={r.id} className="mb-10">
           <p>{r.knyha}</p>
           <p>{r.rozdil}</p>
-          {r.text.map((line) => (
-            <p>{line}</p>
+          {r.text.map((line, i) => (
+            <p key={i}>{line}</p>
           ))}
         </div>
       ))}

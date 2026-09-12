@@ -3,7 +3,7 @@
 import { Data } from '@/lib/types';
 import { decode } from 'html-entities';
 import clsx from 'clsx';
-import { forwardRef, TouchEventHandler } from 'react';
+import { forwardRef } from 'react';
 import HomeButton from '@/components/HomeButton';
 import ThemeSwitch from './ThemeSwitch';
 import PaletteSwitch from './PaletteSwitch';

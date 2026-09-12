@@ -1,26 +1,25 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { PaletteIcon, CheckIcon } from 'lucide-react';
 import { PALETTES, DEFAULT_PALETTE, PALETTE_STORAGE_KEY } from '@/lib/palettes';
+import { useMounted } from '@/lib/useMounted';
 
 const MENU_WIDTH = 224;
 const VIEWPORT_MARGIN = 8;
 
 export default function PaletteSwitch() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [open, setOpen] = useState(false);
-  const [palette, setPalette] = useState(DEFAULT_PALETTE);
+  const [palette, setPalette] = useState(() =>
+    typeof document === 'undefined'
+      ? DEFAULT_PALETTE
+      : (document.documentElement.getAttribute('data-palette') ?? DEFAULT_PALETTE),
+  );
   const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
   const { resolvedTheme } = useTheme();
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-    const current = document.documentElement.getAttribute('data-palette');
-    if (current) setPalette(current);
-  }, []);
 
   useLayoutEffect(() => {
     if (!open || !wrapperRef.current) return;

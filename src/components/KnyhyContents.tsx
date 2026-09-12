@@ -4,10 +4,9 @@ import KnyhaCardSZ from './KnyhaCardSZ';
 import KnyhaCardNZ from './KnyhaCardNZ';
 import clsx from 'clsx';
 import localFont from 'next/font/local';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ThemeSwitch from './ThemeSwitch';
 import PaletteSwitch from './PaletteSwitch';
-import SearchBtn from './SearchBtn';
 import SearchDialog from './SearchDialog';
 
 const evangelieFont = localFont({
@@ -17,10 +16,6 @@ const evangelieFont = localFont({
 
 export default function KnyhyContents() {
   const [showSearchDialog, setShowSearchDialog] = useState(false);
-
-  function handleSearchClick() {
-    setShowSearchDialog(true);
-  }
 
   function handleCloseDialog() {
     setShowSearchDialog(false);

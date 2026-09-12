@@ -1,15 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { MoonIcon, SunIcon } from 'lucide-react';
+import { useMounted } from '@/lib/useMounted';
 
 export default function ThemeSwitch() {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const { setTheme, resolvedTheme } = useTheme();
-
-  useEffect(() => setMounted(true), []);
 
   if (!mounted)
     return (
