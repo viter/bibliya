@@ -68,13 +68,13 @@ export default function PaletteSwitch() {
     <div className="relative" ref={wrapperRef}>
       <button
         type="button"
-        className="flex w-8 h-8 items-center justify-center rounded-full hover:bg-accent hover:cursor-pointer"
+        className="flex w-8 h-8 bg-secondary items-center justify-center rounded-full hover:bg-accent hover:cursor-pointer"
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
         title="Кольорова схема"
       >
-        <PaletteIcon className="text-2xl text-foreground" />
+        <PaletteIcon className="text-foreground" />
       </button>
       {open && menuPos && (
         <div

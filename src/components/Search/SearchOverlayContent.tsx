@@ -1,20 +1,18 @@
-import React, { useEffect, useRef, type JSX } from 'react';
-import { Checkbox } from './ui/checkbox';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
+'use client';
+
+import { Checkbox } from '../ui/checkbox';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import { knyhySZ, knyhyNZ, StringDictionary } from '@/utils/knyhy';
 import { decode } from 'html-entities';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { cn } from '@/lib/utils';
-import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-
-interface SearchDialogProps {
-  showDialog: boolean;
-  onClose: () => void;
-}
+import { useOverlayStore } from '@/store/overlayStore';
+import { ScrollArea } from '../ui/scroll-area';
 
 interface StringBooleanDictionary {
   [key: string]: boolean;
@@ -45,10 +43,10 @@ const formSchema = z.object({
   knyha: z.array(z.string()).optional(),
 });
 
-export default function SearchDialog({ showDialog, onClose }: SearchDialogProps) {
-  const dialogRef = useRef<null | HTMLDialogElement>(null);
-
+export default function SearchOverlayContent() {
   const router = useRouter();
+
+  const closeOverlay = useOverlayStore((s) => s.closeOverlay);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,21 +56,6 @@ export default function SearchDialog({ showDialog, onClose }: SearchDialogProps)
       knyha: [],
     },
   });
-
-  useEffect(() => {
-    if (showDialog) {
-      dialogRef.current?.showModal();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [showDialog]);
-
-  function closeDialog() {
-    dialogRef.current?.close();
-    onClose();
-    form.clearErrors();
-    form.reset();
-  }
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     const searchParams = new URLSearchParams();
@@ -85,74 +68,63 @@ export default function SearchDialog({ showDialog, onClose }: SearchDialogProps)
         searchParams.append('k', kn);
       });
     }
-
+    closeOverlay();
     router.push(`/poshuk?${searchParams.toString()}`);
   }
 
-  const dialog: JSX.Element | null = showDialog ? (
-    <dialog
-      ref={dialogRef}
-      className="md:w-1/2 text-xs md:text-base bg-popover text-popover-foreground rounded-md shadow-lg backdrop:backdrop-blur-sm outline-hidden"
-      onClick={(e) => {
-        if (e.target === dialogRef.current) {
-          closeDialog();
-        }
-      }}
-    >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="relative w-full h-full p-3">
-          <div className="flex w-full items-center space-x-2">
-            <FormField
-              control={form.control}
-              name="search"
-              render={({ field }) => {
-                return (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        {...field}
-                        id="search"
-                        className={cn(
-                          'focus:outline-hidden border-0 outline-hidden shadow-md rounded-lg bg-background',
-                          form.formState.errors.search &&
-                            'bg-destructive/10 dark:border dark:border-destructive',
-                        )}
-                      />
-                    </FormControl>
-                  </FormItem>
-                );
-              }}
-            />
-            <Button
-              type="submit"
-              className="drop-shadow-md rounded-lg"
-            >
-              Шукати
-            </Button>
-          </div>
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="relative w-full p-3">
+        <div className="flex w-full items-center space-x-2">
+          <FormField
+            control={form.control}
+            name="search"
+            render={({ field }) => {
+              return (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="search"
+                      className={cn(
+                        'focus:outline-hidden border outline-hidden border-muted-foreground/70 bg-background',
+                        form.formState.errors.search &&
+                          'bg-destructive/10 dark:border dark:border-destructive',
+                      )}
+                    />
+                  </FormControl>
+                </FormItem>
+              );
+            }}
+          />
+          <Button type="submit">Шукати</Button>
+        </div>
 
-          {form.formState.errors.search && (
-            <p className="text-destructive mt-3">{form.formState.errors.search.message}</p>
-          )}
+        {form.formState.errors.search && (
+          <p className="text-destructive mt-3">{form.formState.errors.search.message}</p>
+        )}
+        <div className="mt-5">
+          <ScrollArea
+            className="h-[60vh] max-h-154"
+            scrollbarClassName="opacity-0 data-[hovering]:opacity-100 data-[scrolling]:opacity-100"
+          >
+            <div className="flex gap-5 bg-muted p-3 rounded-md">
+              <ZavitChckBox zavit="sz" form={form} />
+              <ZavitChckBox zavit="nz" form={form} />
+            </div>
 
-          <div className="flex mt-5 gap-5 bg-muted p-3 rounded-lg">
-            <ZavitChckBox zavit="sz" form={form} />
-            <ZavitChckBox zavit="nz" form={form} />
-          </div>
+            <div className="grid grid-cols-3 gap-2 md:grid-cols-5 grid-flow-row mt-3 bg-muted p-3 rounded-lg">
+              <KnyhyChckBoxes knyhy={knyhySZ} form={form} />
+            </div>
 
-          <div className="grid grid-cols-4 md:grid-cols-5 grid-flow-row mt-3 bg-muted p-3 rounded-lg">
-            <KnyhyChckBoxes knyhy={knyhySZ} form={form} />
-          </div>
-
-          <div className="grid grid-cols-5 grid-flow-row mt-3 bg-muted p-3 rounded-lg">
-            <KnyhyChckBoxes knyhy={knyhyNZ} form={form} />
-          </div>
-        </form>
-      </Form>
-    </dialog>
-  ) : null;
-
-  return dialog;
+            <div className="grid grid-cols-3 gap-2 md:grid-cols-5 grid-flow-row mt-3 bg-muted p-3 rounded-lg">
+              <KnyhyChckBoxes knyhy={knyhyNZ} form={form} />
+            </div>
+          </ScrollArea>
+        </div>
+      </form>
+    </Form>
+  );
 }
 
 interface ZavitChckBoxProps {
@@ -167,14 +139,14 @@ function ZavitChckBox({ zavit, form }: ZavitChckBoxProps) {
       name="zavit"
       render={({ field }) => {
         return (
-          <FormItem>
+          <FormItem className="flex items-center">
             <FormControl>
               <Checkbox
                 onCheckedChange={(checked) => {
                   if (checked) form.setValue('knyha', []);
                   return checked ? field.onChange([zavit]) : field.onChange([]);
                 }}
-                className="mr-2 bg-input border-none rounded-md"
+                className="mr-2 bg-background border border-muted-foreground/70"
                 checked={field.value?.includes(zavit)}
               />
             </FormControl>
@@ -204,7 +176,7 @@ function KnyhyChckBoxes({ knyhy, form }: KnyhyChckBoxesProps) {
               control={form.control}
               name="knyha"
               render={({ field }) => (
-                <FormItem key={knyha[0]}>
+                <FormItem key={knyha[0]} className="flex items-center">
                   <FormControl>
                     <Checkbox
                       onCheckedChange={(checked) => {
@@ -213,7 +185,7 @@ function KnyhyChckBoxes({ knyhy, form }: KnyhyChckBoxesProps) {
                           ? field.onChange([...(field.value as string[]), knyha[0]])
                           : field.onChange(field.value?.filter((value) => value !== knyha[0]));
                       }}
-                      className="mr-2 bg-input border-none rounded-md"
+                      className="mr-2 bg-background border border-muted-foreground/70"
                       checked={field.value?.includes(knyha[0])}
                     />
                   </FormControl>

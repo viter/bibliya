@@ -19,7 +19,7 @@ type KnyhaParams = {
 type ScrollerArgs = {
   rozdily: NodeList | undefined;
   activeItem: Element | null;
-  prevItem: HTMLDivElement | null;
+  prevItem: Element | null;
   contentsDiv: HTMLDivElement | null;
 };
 
@@ -29,12 +29,18 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const currentItem = useRef('');
+  const hasScrolledToVerseRef = useRef(false);
 
   const [showMenu, setShowMenu] = useState(false);
 
   const { width } = useWindowSize();
 
   useEffect(() => {
+    // `useWindowSize` reports 0 until it measures the real viewport on mount;
+    // wait for that so we attach the listener for the right (mobile/desktop)
+    // branch once, instead of briefly wiring up the wrong one first.
+    if (width === 0) return;
+
     const chaptersDiv = chaptersRef.current;
     const contentsDiv = contentsRef.current;
 
@@ -55,6 +61,33 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
       chaptersDiv
         ?.querySelector('[data-slot=scroll-area-viewport]')
         ?.addEventListener('scroll', scrollerMobile.bind({ currentItem }));
+    }
+
+    if (!hasScrolledToVerseRef.current) {
+      const hash = window.location.hash.slice(1);
+      if (hash.startsWith('verse_')) {
+        hasScrolledToVerseRef.current = true;
+        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        const chapterId = hash.split('_')[1];
+        currentItem.current = `rozdil_${chapterId}`;
+
+        const activeItem = contentsDiv?.querySelector(`#item_${chapterId}`);
+        if (activeItem) {
+          contentsDiv?.querySelectorAll('nav > ul > li > a.font-bold').forEach((el) => {
+            el.classList.remove('font-bold', 'dark:text-neutral-100');
+            el.classList.add('dark:text-neutral-300');
+          });
+          activeItem.classList.add('font-bold', 'dark:text-neutral-100');
+          activeItem.classList.remove('dark:text-neutral-300');
+
+          // Keep the scroll-spy's own bookkeeping in sync, so the next manual
+          // scroll knows this is the item to un-highlight instead of leaving
+          // it stuck highlighted.
+          args.activeItem = activeItem;
+          args.prevItem = activeItem;
+        }
+      }
     }
 
     return () => {
@@ -137,8 +170,6 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   function highlightMenuItem() {
     const contentsDiv = mobileMenuRef?.current;
     const activeItem = contentsDiv?.querySelector(`#item_m_${currentItem.current.split('_')[1]}`);
-
-    console.log('///////', currentItem.current);
 
     contentsDiv?.querySelector('nav > ul > li > a.font-bold')?.classList.remove('font-bold');
 

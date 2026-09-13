@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { decode } from 'html-entities';
 import localFont from 'next/font/local';
 import { Data } from '@/lib/types';
+import { parseVerseLine, verseAnchorId } from '@/lib/verse';
 import { forwardRef, TouchEventHandler } from 'react';
 import { ScrollArea } from './ui/scroll-area';
 
@@ -31,12 +32,16 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
           onTouchEnd={onTouchEnd}
         >
           {data.map((dataItem) => {
-            const text = decode(dataItem.text).split(' ');
-            if (/^[0-9]/.test(text[0].trim())) {
-              text.shift();
-            }
-            const word = text.shift()?.split('');
+            const verses = decode(dataItem.text)
+              .split('\n')
+              .map((line) => parseVerseLine(line))
+              .filter((verse) => verse !== null);
+
+            const [firstVerse, ...restVerses] = verses;
+            const firstVerseWords = firstVerse?.content.split(' ') ?? [];
+            const word = firstVerseWords.shift()?.split('');
             const firstLatterInWord = word?.shift();
+
             return (
               <div key={`${dataItem.id}r2`}>
                 <div id={`rozdil_${dataItem.id}`} className="rozdil"></div>
@@ -44,23 +49,33 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
                   {decode(dataItem.rozdil)}
                 </p>
                 <p className="mb-16">
-                  <span
-                    className={clsx(
-                      arnoldFont.variable,
-                      'font-arnold',
-                      'text-[38px]',
-                      'text-red-500',
-                      'dark:text-red-400',
-                      'float-left',
-                      'block',
-                      'mr-2',
-                      'mt-3',
-                    )}
-                  >
-                    {firstLatterInWord}
-                  </span>
-                  {word?.join('')}&nbsp;
-                  {text.join(' ')}
+                  {firstVerse && (
+                    <span id={verseAnchorId(dataItem.id, firstVerse.num)}>
+                      <span
+                        className={clsx(
+                          arnoldFont.variable,
+                          'font-arnold',
+                          'text-[38px]',
+                          'text-red-500',
+                          'dark:text-red-400',
+                          'float-left',
+                          'block',
+                          'mr-2',
+                          'mt-3',
+                        )}
+                      >
+                        {firstLatterInWord}
+                      </span>
+                      {word?.join('')}&nbsp;
+                      {firstVerseWords.join(' ')}
+                    </span>
+                  )}
+                  {restVerses.map((verse) => (
+                    <span key={verse.num} id={verseAnchorId(dataItem.id, verse.num)}>
+                      {' '}
+                      {verse.num} {verse.content}
+                    </span>
+                  ))}
                 </p>
               </div>
             );

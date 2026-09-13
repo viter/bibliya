@@ -21,7 +21,7 @@ export default function KnyhaCard({
   knyha: string;
 }>): JSX.Element {
   return (
-    <div className="lg:shadow-md md:w-85 lg:w-120 xl:w-160 xl:p-10 2xl:p-15 bg-card p-4 rounded-lg mb-5">
+    <div className="lg:shadow-md w-full md:w-85 lg:w-120 xl:w-160 xl:p-10 2xl:p-15 bg-card p-2 rounded-lg mb-5">
       <div className="flex items-center gap-7 ">
         <div className="bg-muted w-20 h-20 lg:w-30 lg:h-30 rounded-full p-1">
           <Image
@@ -37,7 +37,7 @@ export default function KnyhaCard({
         </h1>
       </div>
 
-      <div className="p-3 pr-2 rounded-b-md">
+      <div className="rounded-b-md">
         <ScrollArea className="h-70 md:h-150 overflow-y-auto py-3">
           <ScrollBar />
           <div className="flex gap-7 lg:gap-12 text-base lg:text-lg">{children}</div>

@@ -6,6 +6,7 @@ import type { JSX } from 'react';
 import { cn } from '@/lib/utils';
 import { PALETTES, DEFAULT_PALETTE, PALETTE_STORAGE_KEY } from '@/lib/palettes';
 import { CookieConsent } from '@/components/CookieConsent';
+import RootOverlay from '@/components/RootOverlay';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,10 +27,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, 'h-screen')}>
         <script dangerouslySetInnerHTML={{ __html: setPaletteScript }} />
-        <Providers>
-          <div className="md:w-190 lg:w-250 xl:w-7xl 2xl:w-350 relative md:mx-auto">{children}</div>
-        </Providers>
-        <CookieConsent />
+        <div className="md:w-190 lg:w-250 xl:w-7xl 2xl:w-350 relative md:mx-auto px-2 md:px-5">
+          <Providers>
+            {children}
+            <RootOverlay />
+          </Providers>
+          <CookieConsent />
+        </div>
       </body>
     </html>
   );
