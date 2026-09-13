@@ -109,7 +109,8 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
               </p>
               <p className="italic text-md font-semibold mb-1">{r.rozdil}</p>
               {r.text.map((line, i) => {
-                if (!words.some((word) => line.includes(word))) return null;
+                const lowerLine = line.toLowerCase();
+                if (!words.some((word) => lowerLine.includes(word.toLowerCase()))) return null;
 
                 const verse = parseVerseLine(line);
                 const href = verse
