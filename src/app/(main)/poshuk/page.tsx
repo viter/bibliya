@@ -67,7 +67,7 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
           id: r.id,
           knyha: r.knyha,
           rozdil: r.rozdil,
-          text: r.text.split('\n'),
+          text: r.text.split(/\r\n|\r|\n/),
           zavit: r.zavit,
         });
       }

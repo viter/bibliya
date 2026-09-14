@@ -33,7 +33,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
         >
           {data.map((dataItem) => {
             const verses = decode(dataItem.text)
-              .split('\n')
+              .split(/\r\n|\r|\n/)
               .map((line) => parseVerseLine(line))
               .filter((verse) => verse !== null);
 
@@ -73,7 +73,7 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
                   {restVerses.map((verse) => (
                     <span key={verse.num} id={verseAnchorId(dataItem.id, verse.num)}>
                       {' '}
-                      {verse.num} {verse.content}
+                      <span className="text-primary font-bold">{verse.num}</span> {verse.content}
                     </span>
                   ))}
                 </p>
