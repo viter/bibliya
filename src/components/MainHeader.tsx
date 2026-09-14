@@ -5,6 +5,7 @@ import localFont from 'next/font/local';
 import SearchBtn from './Search/SearchBtn';
 import PaletteSwitch from './PaletteSwitch';
 import ThemeSwitch from './ThemeSwitch';
+import UserMenu from './auth/UserMenu';
 import Link from 'next/link';
 
 const evangelieFont = localFont({
@@ -38,6 +39,8 @@ export default function MainHeader() {
           <div className="w-8 h-8 rounded-full p-1 bg-secondary hover:bg-accent hover:cursor-pointer">
             <ThemeSwitch />
           </div>
+
+          <UserMenu />
         </div>
       </div>
     </header>

@@ -37,11 +37,60 @@ model tsytaty {
 }
 
 model user {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(255)
-  username String @db.VarChar(128)
-  password String @db.VarChar(128)
-  salt     String @db.VarChar(128)
-  email    String @db.VarChar(128)
-  typ      String @db.VarChar(50)
+  id            Int       @id @default(autoincrement())
+  name          String    @db.VarChar(255)
+  username      String?   @db.VarChar(128)
+  email         String    @db.VarChar(128)
+  emailVerified Boolean   @default(false)
+  image         String?   @db.VarChar(255)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  sessions      session[]
+  accounts      account[]
+
+  @@unique([email])
+}
+
+model session {
+  id        Int      @id @default(autoincrement())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  ipAddress String?  @db.VarChar(45)
+  userAgent String?  @db.Text
+  userId    Int
+  user      user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model account {
+  id                    Int       @id @default(autoincrement())
+  accountId             String    @db.VarChar(255)
+  providerId            String    @db.VarChar(255)
+  userId                Int
+  user                  user      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?   @db.VarChar(255)
+  password              String?   @db.VarChar(255)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @default(now()) @updatedAt
+
+  @@index([userId])
+}
+
+model verification {
+  id         Int      @id @default(autoincrement())
+  identifier String   @db.VarChar(255)
+  value      String   @db.Text
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@index([identifier])
 }
