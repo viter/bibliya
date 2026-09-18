@@ -30,6 +30,7 @@ model katehoriyi {
   user       user      @relation(fields: [userid], references: [id], onDelete: Cascade)
   tsytaty    tsytaty[]
 
+  @@unique([userid, katehoriya])
   @@index([userid])
 }
 

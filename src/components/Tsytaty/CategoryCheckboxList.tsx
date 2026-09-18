@@ -21,7 +21,8 @@ export default function CategoryCheckboxList({
 
   function toggle(id: number, name: string) {
     if (selected.includes(id)) {
-      onChange(selected.filter((s) => s !== id));
+      const next = selected.filter((s) => s !== id);
+      onChange(next.length === 0 && bezId !== undefined ? [bezId] : next);
       return;
     }
     if (name !== BEZ_KATEHORIYI && bezId !== undefined) {
@@ -40,7 +41,7 @@ export default function CategoryCheckboxList({
       <div className="flex flex-col gap-2 pr-2">
         {allKatehoriyi.map((kat) => {
           const isBez = kat.katehoriya === BEZ_KATEHORIYI;
-          const isDisabled = isBez && hasOtherSelected;
+          const isDisabled = isBez && (hasOtherSelected || selected.includes(kat.id));
           return (
             <label
               key={kat.id}

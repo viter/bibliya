@@ -2,14 +2,10 @@
 
 import { PlusIcon } from 'lucide-react';
 import { useOverlayStore } from '@/store/overlayStore';
-import { useEditModeStore } from '@/store/editModeStore';
 import CategoryForm from './CategoryForm';
 
 export default function AddCategoryButton() {
   const openOverlay = useOverlayStore((s) => s.openOverlay);
-  const editMode = useEditModeStore((s) => s.editMode);
-
-  if (!editMode) return null;
 
   return (
     <button
