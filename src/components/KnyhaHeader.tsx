@@ -4,6 +4,9 @@ import { knyhy } from '@/utils/knyhy';
 import { decode } from 'html-entities';
 import ThemeSwitch from './ThemeSwitch';
 import PaletteSwitch from './PaletteSwitch';
+import SearchBtn from './Search/SearchBtn';
+import QuotesBtn from './QuotesBtn';
+import UserMenu from './auth/UserMenu';
 
 export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick: () => void }) {
   return (
@@ -17,10 +20,13 @@ export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick
               ? decode(knyhy[knyha].title[1])
               : decode(knyhy[knyha].title)}
           </div>
-          <div className="hidden md:flex items-center gap-1">
-            <PaletteSwitch />
-            <div className="w-8 h-8 rounded-full p-1 bg-transparent hover:cursor-pointer">
+          <div className="flex items-center gap-1">
+            <SearchBtn />
+            <QuotesBtn />
+            <div className="hidden md:flex items-center gap-1">
+              <PaletteSwitch />
               <ThemeSwitch />
+              <UserMenu />
             </div>
           </div>
         </div>

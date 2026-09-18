@@ -73,7 +73,10 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
                   {restVerses.map((verse) => (
                     <span key={verse.num} id={verseAnchorId(dataItem.id, verse.num)}>
                       {' '}
-                      <span className="text-primary font-bold">{verse.num}</span> {verse.content}
+                      <span className="text-primary font-bold" data-verse-num>
+                        {verse.num}
+                      </span>{' '}
+                      {verse.content}
                     </span>
                   ))}
                 </p>

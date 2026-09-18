@@ -38,18 +38,13 @@ const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMe
       onClick={handleMainDivClick}
       onTouchStart={handleMainDivTouch}
     >
-      <div
-        id="mobileMenu"
-        className="fixed inset-0 w-2/3 p-3 overflow-y-auto bg-card"
-        ref={ref}
-      >
+      <div id="mobileMenu" className="fixed inset-0 w-2/3 p-3 overflow-y-auto bg-card" ref={ref}>
         <div className="flex bg-secondary py-3 px-5 rounded-md items-center justify-between">
           <HomeButton className="block text-foreground hover:text-foreground bg-secondary hover:bg-accent hover:shadow-md active:shadow-none p-2 rounded-md" />
           <div className="flex items-center gap-1">
             <PaletteSwitch />
-            <div className="w-8 h-8 rounded-full p-1 bg-secondary hover:bg-accent hover:cursor-pointer">
-              <ThemeSwitch />
-            </div>
+
+            <ThemeSwitch />
           </div>
         </div>
 

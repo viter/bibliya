@@ -21,6 +21,7 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await resend.emails.send({
         from: process.env.EMAIL_FROM as string,
+        replyTo: process.env.EMAIL_REPLY_TO,
         to: user.email,
         subject: 'Відновлення пароля — Святе Письмо',
         html: `
@@ -36,6 +37,7 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await resend.emails.send({
         from: process.env.EMAIL_FROM as string,
+        replyTo: process.env.EMAIL_REPLY_TO,
         to: user.email,
         subject: 'Підтвердіть електронну пошту — Святе Письмо',
         html: `

@@ -5,6 +5,7 @@ import { MOBILE_WINDOW_WIDTH } from '@/lib/constants';
 import Chapters from '@/components/Chapters';
 import Contents from '@/components/Contents';
 import KnyhaHeader from '@/components/KnyhaHeader';
+import SelectionToolbar from '@/components/SelectionToolbar';
 import { useEffect, useRef, useState } from 'react';
 import { scroller, scrollerMobile } from '@/utils/clientEvents';
 import MobileMenu from '@/components/MobileMenu';
@@ -35,6 +36,22 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
 
   const { width } = useWindowSize();
 
+  // Close the mobile menu when the viewport grows past the mobile breakpoint,
+  // without calling setState directly inside the DOM-wiring effect below.
+  const [prevWidth, setPrevWidth] = useState(width);
+  if (width !== prevWidth) {
+    setPrevWidth(width);
+    if (width > MOBILE_WINDOW_WIDTH) {
+      setShowMenu(false);
+    }
+  }
+
+  // Keep body scroll locking in sync with the mobile menu instead of toggling
+  // the class by hand at every call site that opens/closes it.
+  useEffect(() => {
+    document.body.classList.toggle('overflow-hidden', showMenu);
+  }, [showMenu]);
+
   useEffect(() => {
     // `useWindowSize` reports 0 until it measures the real viewport on mount;
     // wait for that so we attach the listener for the right (mobile/desktop)
@@ -52,8 +69,6 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
     };
 
     if (width > MOBILE_WINDOW_WIDTH) {
-      setShowMenu(false);
-      document.body.classList.remove('overflow-hidden');
       chaptersDiv
         ?.querySelector('[data-slot=scroll-area-viewport]')
         ?.addEventListener('scroll', scroller.bind(args));
@@ -109,14 +124,8 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   }
 
   function onClick() {
-    const next = !showMenu;
-    setShowMenu(next);
+    setShowMenu(!showMenu);
     highlightMenuItem();
-    if (next) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
   }
 
   function swipeMenuIn() {
@@ -128,25 +137,20 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
     setShowMenu(false);
   }
 
-  let startX = 0;
-  let startY = 0;
-  let endX = 0;
-  let endY = 0;
+  const touchStartRef = useRef({ x: 0, y: 0 });
 
   function touchStart(e: React.TouchEvent<HTMLDivElement>) {
     const touches = e.changedTouches;
-    // eslint-disable-next-line react-hooks/immutability
-    startX = touches[0].clientX;
-    startY = touches[0].clientY;
+    touchStartRef.current = { x: touches[0].clientX, y: touches[0].clientY };
   }
 
   function touchEnd(e: React.TouchEvent<HTMLDivElement>) {
     const touches = e.changedTouches;
-    endX = touches[0].clientX;
-    endY = touches[0].clientY;
+    const endX = touches[0].clientX;
+    const endY = touches[0].clientY;
 
-    const deltaX = endX - startX;
-    const deltaY = endY - startY;
+    const deltaX = endX - touchStartRef.current.x;
+    const deltaY = endY - touchStartRef.current.y;
     const horizontalLength = Math.abs(deltaX);
     const verticalLength = Math.abs(deltaY);
     const minSwipeLength = width / 3;
@@ -159,10 +163,8 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
     if (width <= MOBILE_WINDOW_WIDTH && isHorizontalSwipe) {
       if (deltaX >= 0) {
         swipeMenuIn();
-        document.body.classList.add('overflow-hidden');
       } else {
         swipeMenuOut();
-        document.body.classList.remove('overflow-hidden');
       }
     }
   }
@@ -187,6 +189,7 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
         <Contents data={data} ref={contentsRef} onChapterClick={scrollToChapter} />
         <Chapters data={data} ref={chaptersRef} onTouchStart={touchStart} onTouchEnd={touchEnd} />
       </div>
+      <SelectionToolbar containerRef={chaptersRef} data={data} knyha={knyha} />
       <div className={clsx(showMenu ? '' : 'invisible fixed')}>
         <MobileMenu
           data={data}

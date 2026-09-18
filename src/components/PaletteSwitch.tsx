@@ -74,7 +74,7 @@ export default function PaletteSwitch() {
         aria-expanded={open}
         title="Кольорова схема"
       >
-        <PaletteIcon className="text-foreground" />
+        <PaletteIcon className="h-5 w-5 text-foreground" />
       </button>
       {open && menuPos && (
         <div

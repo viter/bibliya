@@ -22,21 +22,20 @@ export default function ThemeSwitch() {
       />
     );
 
-  if (resolvedTheme === 'dark') {
-    return (
-      <SunIcon
-        className="text-2xl text-foreground"
-        onClick={() => setTheme('light')}
-      />
-    );
-  }
+  const isDark = resolvedTheme === 'dark';
 
-  if (resolvedTheme === 'light') {
-    return (
-      <MoonIcon
-        className="text-2xl text-foreground"
-        onClick={() => setTheme('dark')}
-      />
-    );
-  }
+  return (
+    <button
+      type="button"
+      className="flex w-8 h-8 bg-secondary items-center justify-center rounded-full hover:bg-accent hover:cursor-pointer"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      title="Тема"
+    >
+      {isDark ? (
+        <SunIcon className="h-5 w-5 text-foreground" />
+      ) : (
+        <MoonIcon className="h-5 w-5 text-foreground" />
+      )}
+    </button>
+  );
 }

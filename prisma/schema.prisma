@@ -24,29 +24,38 @@ model bibliya {
 }
 
 model katehoriyi {
-  id         Int    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   userid     Int
-  katehoriya String @db.VarChar(255)
+  katehoriya String    @db.VarChar(255)
+  user       user      @relation(fields: [userid], references: [id], onDelete: Cascade)
+  tsytaty    tsytaty[]
+
+  @@index([userid])
 }
 
 model tsytaty {
-  id         Int    @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   userid     Int
-  categoryid Int
-  tsytata    String @db.MediumText
+  tsytata    String       @db.MediumText
+  user       user         @relation(fields: [userid], references: [id], onDelete: Cascade)
+  katehoriyi katehoriyi[]
+
+  @@index([userid])
 }
 
 model user {
-  id            Int       @id @default(autoincrement())
-  name          String    @db.VarChar(255)
-  username      String?   @db.VarChar(128)
-  email         String    @db.VarChar(128)
-  emailVerified Boolean   @default(false)
-  image         String?   @db.VarChar(255)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  id            Int          @id @default(autoincrement())
+  name          String       @db.VarChar(255)
+  username      String?      @db.VarChar(128)
+  email         String       @db.VarChar(128)
+  emailVerified Boolean      @default(false)
+  image         String?      @db.VarChar(255)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
   sessions      session[]
   accounts      account[]
+  katehoriyi    katehoriyi[]
+  tsytaty       tsytaty[]
 
   @@unique([email])
 }
