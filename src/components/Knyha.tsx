@@ -183,9 +183,9 @@ export default function Knyha({ knyha, data }: KnyhaParams) {
   }
 
   return (
-    <div className="overflow-hidden h-[calc(100%-1rem)]">
+    <div className="flex flex-col overflow-hidden h-dvh pb-4">
       <KnyhaHeader knyha={knyha} onClick={onClick} />
-      <div className="flex">
+      <div className="flex flex-1 min-h-0">
         <Contents data={data} ref={contentsRef} onChapterClick={scrollToChapter} />
         <Chapters data={data} ref={chaptersRef} onTouchStart={touchStart} onTouchEnd={touchEnd} />
       </div>

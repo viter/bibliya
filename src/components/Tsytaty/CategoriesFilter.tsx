@@ -48,9 +48,14 @@ export default function CategoriesFilter({ katehoriyi, selected }: CategoriesFil
   }
 
   return (
-    <aside className="hidden md:block w-56 shrink-0">
-      <h2 className="text-lg font-semibold text-foreground mb-3">Категорії</h2>
-      <CategoryTagsList katehoriyi={katehoriyi} selected={selected} />
+    <aside className="hidden md:flex flex-col w-56 shrink-0 h-full">
+      <h2 className="text-lg font-semibold text-foreground mb-3 shrink-0">Категорії</h2>
+      <CategoryTagsList
+        katehoriyi={katehoriyi}
+        selected={selected}
+        className="flex-1 min-h-0"
+        scrollClassName="max-h-full min-h-0"
+      />
     </aside>
   );
 }

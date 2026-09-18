@@ -11,7 +11,7 @@ import UserMenu from './auth/UserMenu';
 export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick: () => void }) {
   return (
     <>
-      <div className="z-10 w-full bg-transparent py-2 lg:py-4 px-5 mb-5">
+      <div className="z-10 w-full shrink-0 bg-transparent py-2 lg:py-4 px-5 mb-5">
         <div className="flex">
           <ContentsButton handleClick={onClick} />
           <HomeButton />

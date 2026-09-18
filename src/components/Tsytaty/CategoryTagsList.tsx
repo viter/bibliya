@@ -16,9 +16,16 @@ interface Katehoriya {
 interface CategoryTagsListProps {
   katehoriyi: Katehoriya[];
   selected: number[];
+  className?: string;
+  scrollClassName?: string;
 }
 
-export default function CategoryTagsList({ katehoriyi, selected }: CategoryTagsListProps) {
+export default function CategoryTagsList({
+  katehoriyi,
+  selected,
+  className,
+  scrollClassName = 'max-h-64',
+}: CategoryTagsListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -36,11 +43,11 @@ export default function CategoryTagsList({ katehoriyi, selected }: CategoryTagsL
   }
 
   return (
-    <div>
+    <div className={cn('flex flex-col', className)}>
       {katehoriyi.length === 0 ? (
         <p className="text-muted-foreground text-sm">Немає категорій</p>
       ) : (
-        <ScrollArea className="max-h-64">
+        <ScrollArea className={scrollClassName}>
           <div className="flex flex-col gap-2 pr-2">
             {katehoriyi.map((kat) => {
               const isSelected = selected.includes(kat.id);

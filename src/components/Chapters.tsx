@@ -22,10 +22,10 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
   ref,
 ) {
   return (
-    <div className="flex-1 md:ml-58 lg:ml-78 pb-4 h-[calc(100dvh-1.1rem)] md:h-[calc(100dvh-6rem)]">
-      <div className="sticky top-0 h-[calc(100%-1rem)] text-justify text-card-foreground text-lg md:py-6 md:px-2 bg-card md:shadow-lg md:rounded-md mx-1">
+    <div className="flex-1 min-w-0">
+      <div className="h-full text-justify text-card-foreground text-lg px-0 md:py-6 md:px-2 bg-card md:shadow-lg md:rounded-md md:mx-1">
         <ScrollArea
-          className="h-full px-4"
+          className="h-full pr-3 md:px-4"
           id="tekst"
           ref={ref}
           onTouchStart={onTouchStart}

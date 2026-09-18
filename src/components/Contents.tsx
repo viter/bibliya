@@ -23,9 +23,9 @@ const Contents = forwardRef<HTMLDivElement, ContentsProps>(function Contents(
     <div
       id="content"
       ref={ref}
-      className="hidden md:block 3xl:w-[25rem] md:fixed md:h-[calc(95vh-4rem)] max-h-screen w-58 lg:w-78 mb-5 pr-5"
+      className="hidden md:block shrink-0 3xl:w-[25rem] w-58 lg:w-78 pr-5"
     >
-      <ScrollArea className="h-full fixed">
+      <ScrollArea className="h-full">
         <nav>
           <ul id="itemsList" className="leading-6">
             {data.map((dataItem, index) => {

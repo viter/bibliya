@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 import type { JSX } from 'react';
-import { ScrollArea, ScrollBar } from './ui/scroll-area';
+import { ScrollArea } from './ui/scroll-area';
 
 const title = {
   sz: 'Старий Завіт',
@@ -21,8 +21,8 @@ export default function KnyhaCard({
   knyha: string;
 }>): JSX.Element {
   return (
-    <div className="lg:shadow-md w-full md:w-85 lg:w-120 xl:w-160 xl:p-10 2xl:p-15 bg-card p-2 rounded-lg mb-5">
-      <div className="flex items-center gap-7 ">
+    <div className="flex flex-col h-[min(80vh,calc(100dvh-10rem))] max-h-245 lg:shadow-md w-full md:w-85 lg:w-120 xl:w-160 md:p-5 bg-card p-2 rounded-lg mb-5">
+      <div className="flex items-center gap-7 shrink-0">
         <div className="bg-muted w-20 h-20 lg:w-30 lg:h-30 rounded-full p-1">
           <Image
             src={img[knyha as keyof typeof img]}
@@ -37,9 +37,8 @@ export default function KnyhaCard({
         </h1>
       </div>
 
-      <div className="rounded-b-md">
-        <ScrollArea className="h-70 md:h-150 overflow-y-auto py-3">
-          <ScrollBar />
+      <div className="rounded-b-md flex-1 min-h-0">
+        <ScrollArea className="h-full py-3">
           <div className="flex gap-7 lg:gap-12 text-base lg:text-lg">{children}</div>
         </ScrollArea>
       </div>
