@@ -7,7 +7,7 @@ export default function KnyhaCardNZ() {
   return (
     <KnyhaCard knyha="nz">
       <div>
-        <h1 className="text-foreground font-bold">Євангелії:</h1>
+        <h3 className="text-foreground font-bold">Євангелії:</h3>
         <ul className="text-card-foreground pl-5 pb-3">
           {Object.entries(knyhyNZ[0]).map((k, i: number) => (
             <li key={i} className="hover:bg-accent px-2 rounded-sm">
@@ -28,8 +28,8 @@ export default function KnyhaCardNZ() {
           ))}
         </ul>
 
-        <h1 className="text-foreground font-bold">Послання:</h1>
-        <h1 className="text-foreground ml-3 italic">Ап. Павла:</h1>
+        <h3 className="text-foreground font-bold">Послання:</h3>
+        <h4 className="text-foreground ml-3 italic">Ап. Павла:</h4>
         <ul className="text-card-foreground pl-6 pb-3">
           {Object.entries(knyhyNZ[2]).map((k, i: number) => (
             <li key={i} className="hover:bg-accent px-2 rounded-sm">
@@ -52,7 +52,7 @@ export default function KnyhaCardNZ() {
           ))}
         </ul>
 
-        <h1 className="text-foreground ml-3 italic">Ап. Петра:</h1>
+        <h4 className="text-foreground ml-3 italic">Ап. Петра:</h4>
         <ul className="text-card-foreground pl-6 pb-3">
           {Object.entries(knyhyNZ[4]).map((k, i: number) => (
             <li key={i} className="hover:bg-accent rounded-sm">
@@ -63,7 +63,7 @@ export default function KnyhaCardNZ() {
           ))}
         </ul>
 
-        <h1 className="text-foreground ml-3 italic">Ап. Йоана:</h1>
+        <h4 className="text-foreground ml-3 italic">Ап. Йоана:</h4>
         <ul className="text-card-foreground pl-6 pb-3">
           {Object.entries(knyhyNZ[5]).map((k, i: number) => (
             <li key={i} className="hover:bg-accent px-2 rounded-sm">

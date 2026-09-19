@@ -4,9 +4,15 @@ import { Data } from '@/lib/types';
 import { parseVerseLine, verseAnchorId } from '@/lib/verse';
 import { knyhy } from '@/utils/knyhy';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import type { JSX } from 'react';
 import type { ReactNode } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Пошук',
+  robots: { index: false },
+};
 
 function highlightLine(line: string, words: string[]): ReactNode[] {
   const escaped = words

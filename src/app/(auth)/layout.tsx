@@ -1,5 +1,10 @@
 import type { JSX } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  robots: { index: false },
+};
 
 export default function AuthLayout({
   children,

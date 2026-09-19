@@ -4,7 +4,7 @@ import { LoginForm } from '@/components/auth/LoginForm';
 import { safeRedirectPath } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Вхід — Святе Письмо',
+  title: 'Вхід',
 };
 
 interface LoginPageProps {

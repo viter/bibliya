@@ -16,11 +16,11 @@ export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick
         <div className="flex">
           <ContentsButton handleClick={onClick} />
           <HomeButton />
-          <div className="w-full text-center font-bold text-foreground text-2xl lg:text-3xl">
+          <h1 className="w-full text-center font-bold text-foreground text-2xl lg:text-3xl">
             {Array.isArray(knyhy[knyha].title)
               ? decode(knyhy[knyha].title[1])
               : decode(knyhy[knyha].title)}
-          </div>
+          </h1>
           <div className="flex items-center gap-1">
             <SearchBtn />
             <QuotesBtn />

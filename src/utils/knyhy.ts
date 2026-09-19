@@ -1,3 +1,5 @@
+import { decode } from 'html-entities';
+
 export interface StringDictionary {
   [key: string]: { [key: string]: string | string[] };
 }
@@ -111,3 +113,17 @@ export let knyhy: StringDictionary = {};
 knyhyArr.forEach((kn) => {
   knyhy = { ...knyhy, ...kn };
 });
+
+export const knyhaSlugs = Object.keys(knyhy);
+
+export function getKnyhaTitle(slug: string): string | null {
+  const title = knyhy[slug]?.title;
+  if (!title) return null;
+  return decode(Array.isArray(title) ? title[1] : title);
+}
+
+export function getKnyhaZavit(slug: string): string | null {
+  if (knyhySZ.some((group) => Object.hasOwn(group, slug))) return 'Старий Завіт';
+  if (knyhyNZ.some((group) => Object.hasOwn(group, slug))) return 'Новий Завіт';
+  return null;
+}

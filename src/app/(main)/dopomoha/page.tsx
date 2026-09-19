@@ -2,7 +2,7 @@ import type { JSX, ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Інструкція — Святе Письмо',
+  title: 'Інструкція',
   description: 'Як читати, шукати та зберігати цитати на сайті «Святе Письмо»',
 };
 

@@ -32,9 +32,9 @@ export default function KnyhaCard({
             className="rounded-full w-20 lg:w-30"
           />
         </div>
-        <h1 className="text-center text-2xl lg:text-4xl font-bold text-foreground mb-3">
+        <h2 className="text-center text-2xl lg:text-4xl font-bold text-foreground mb-3">
           {title[knyha as keyof typeof title]}
-        </h1>
+        </h2>
       </div>
 
       <div className="rounded-b-md flex-1 min-h-0">

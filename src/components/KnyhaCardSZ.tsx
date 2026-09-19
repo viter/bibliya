@@ -6,7 +6,7 @@ export default function KnyhaCardSZ() {
   return (
     <KnyhaCard knyha="sz">
       <div>
-        <h1 className="text-foreground font-bold">П&apos;ятикнижжя:</h1>
+        <h3 className="text-foreground font-bold">П&apos;ятикнижжя:</h3>
         <ul className="text-card-foreground pl-5 pb-3">
           {Object.entries(knyhySZ[0]).map((k, i: number) => (
             <Link key={i} href={`/${k[0]}`} scroll={false}>
@@ -17,7 +17,7 @@ export default function KnyhaCardSZ() {
           ))}
         </ul>
 
-        <h1 className="text-foreground font-bold">Книги:</h1>
+        <h3 className="text-foreground font-bold">Книги:</h3>
         <ul className="text-card-foreground pl-5 pb-3">
           {Object.entries(knyhySZ[1]).map((k, i: number) => (
             <Link key={i} href={`/${k[0]}`} scroll={false}>
@@ -28,7 +28,7 @@ export default function KnyhaCardSZ() {
           ))}
         </ul>
 
-        <h1 className="text-foreground font-bold">Книги поетичні:</h1>
+        <h3 className="text-foreground font-bold">Книги поетичні:</h3>
         <ul className="text-card-foreground pl-5 pb-3">
           {Object.entries(knyhySZ[2]).map((k, i: number) => (
             <Link key={i} href={`/${k[0]}`} scroll={false}>
@@ -41,7 +41,7 @@ export default function KnyhaCardSZ() {
       </div>
 
       <div>
-        <h1 className="text-foreground font-bold">Книги пророків:</h1>
+        <h3 className="text-foreground font-bold">Книги пророків:</h3>
         <ul className="text-card-foreground pl-5 pb-3">
           {Object.entries(knyhySZ[3]).map((k, i: number) => (
             <Link key={i} href={`/${k[0]}`} scroll={false}>

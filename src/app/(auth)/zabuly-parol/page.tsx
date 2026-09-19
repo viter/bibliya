@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { ForgotPasswordForm } from '@/components/auth/ForgotPasswordForm';
 
 export const metadata: Metadata = {
-  title: 'Забули пароль — Святе Письмо',
+  title: 'Забули пароль',
 };
 
 export default function ForgotPasswordPage(): JSX.Element {
