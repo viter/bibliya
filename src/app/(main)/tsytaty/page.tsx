@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import QuoteCard from '@/components/Tsytaty/QuoteCard';
 import CategoriesFilter from '@/components/Tsytaty/CategoriesFilter';
+import CategoriesFilterButton from '@/components/Tsytaty/CategoriesFilterButton';
 import EditModeToggle from '@/components/Tsytaty/EditModeToggle';
 
 interface SearchParamsProps {
@@ -39,13 +40,16 @@ export default async function TsytatyPage(props: SearchParamsProps): Promise<JSX
 
   return (
     <div className="flex flex-col h-[calc(100dvh-9rem)]">
-      <div className="flex items-center justify-between mb-5 shrink-0">
+      <div className="flex items-center justify-between mb-4 mt-3 px-2 shrink-0">
         <p className="text-2xl">Мої цитати</p>
-        <EditModeToggle />
+        <div className="flex items-center gap-2">
+          <CategoriesFilterButton katehoriyi={katehoriyi} selected={selected} />
+          <EditModeToggle />
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 flex-1 min-h-0">
-        <div className="order-2 md:order-1 flex-1 min-w-0 min-h-0">
+        <div className="md:order-1 flex-1 min-w-0 min-h-0">
           <ScrollArea className="h-full pr-2">
             {tsytaty.length === 0 ? (
               <p className="text-muted-foreground">
@@ -70,7 +74,7 @@ export default async function TsytatyPage(props: SearchParamsProps): Promise<JSX
           </ScrollArea>
         </div>
 
-        <div className="order-1 md:order-2 md:min-h-0">
+        <div className="hidden md:block md:order-2 md:min-h-0">
           <CategoriesFilter katehoriyi={katehoriyi} selected={selected} />
         </div>
       </div>
