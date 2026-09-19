@@ -17,7 +17,6 @@
  */
 import 'dotenv/config';
 import { createHash } from 'node:crypto';
-import { encode } from 'html-entities';
 import { prisma } from '../src/lib/prisma';
 import { resend } from '../src/lib/mailer';
 
@@ -25,8 +24,9 @@ const BATCH_SIZE = 100; // Resend's max per batch request
 const BATCH_DELAY_MS = 600; // Resend's default limit is 2 requests/second
 const SUBJECT = 'Святе Письмо знову працює';
 const EXCLUDED_SUFFIX = '.ru';
+const GREETING = 'Слава Ісусу Христу!';
 
-type Recipient = { id: number; name: string; email: string; emailVerified: boolean };
+type Recipient = { id: number; email: string; emailVerified: boolean };
 
 const args = process.argv.slice(2);
 const send = args.includes('--send');
@@ -54,7 +54,7 @@ const isGmail = (email: string) => email.trim().toLowerCase().endsWith('@gmail.c
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-function buildMessage({ name, email, emailVerified }: Recipient) {
+function buildMessage({ email, emailVerified }: Recipient) {
   const resetUrl = new URL('/zabuly-parol', siteUrl).href;
   // Google sign-in is new, so only Gmail users are told about it. It links to an
   // existing account only once that account's email is verified, so the wording
@@ -73,7 +73,7 @@ function buildMessage({ name, email, emailVerified }: Recipient) {
     to: email,
     subject: SUBJECT,
     html: `
-      <p>Привіт, ${encode(name)}!</p>
+      <p>${GREETING}</p>
       <p>Раді повідомити, що сайт «Святе Письмо» знову працює. Дякуємо за терпіння!</p>
       <p><strong>Щоб продовжити користуватися сайтом, потрібно створити новий пароль.</strong> Відкрийте сторінку входу, натисніть «Забули пароль?», введіть свою електронну пошту й перейдіть за посиланням з листа, який ми надішлемо:</p>
       <p><a href="${resetUrl}">${resetUrl}</a></p>
@@ -83,7 +83,7 @@ function buildMessage({ name, email, emailVerified }: Recipient) {
       <p>Якщо помітите щось незвичне, просто дайте відповідь на цей лист.</p>
     `,
     text: [
-      `Привіт, ${name}!`,
+      GREETING,
       '',
       'Раді повідомити, що сайт «Святе Письмо» знову працює. Дякуємо за терпіння!',
       '',
@@ -112,7 +112,7 @@ async function main() {
 
   if (testEmail) {
     const { data, error } = await resend.emails.send(
-      buildMessage({ id: 0, name: 'друже', email: testEmail, emailVerified: testVerified }),
+      buildMessage({ id: 0, email: testEmail, emailVerified: testVerified }),
     );
     if (error) fail(`Test send failed: ${error.message}`);
     console.log(`Test email sent to ${testEmail} (id ${data?.id})`);
@@ -120,7 +120,7 @@ async function main() {
   }
 
   const users: Recipient[] = await prisma.user.findMany({
-    select: { id: true, name: true, email: true, emailVerified: true },
+    select: { id: true, email: true, emailVerified: true },
     orderBy: { id: 'asc' },
   });
 
