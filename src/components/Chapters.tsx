@@ -45,9 +45,9 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
             return (
               <div key={`${dataItem.id}r2`}>
                 <div id={`rozdil_${dataItem.id}`} className="rozdil"></div>
-                <p className="leading-normal  font-bold pt-6 pb-6 mb-0 ">
+                <h2 className="leading-normal  font-bold pt-6 pb-6 mb-0 ">
                   {decode(dataItem.rozdil)}
-                </p>
+                </h2>
                 <p className="mb-16">
                   {firstVerse && (
                     <span id={verseAnchorId(dataItem.id, firstVerse.num)}>
