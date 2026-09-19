@@ -10,6 +10,8 @@
  * Links in the email use SITE_URL if set, otherwise BETTER_AUTH_URL from .env.
  * --send refuses to run if that is a localhost address.
  *
+ * Users with emailBouncedAt set (email previously bounced) are never emailed.
+ *
  * Emails go out through Resend's batch API, 100 per request, one message per
  * recipient (nobody sees anyone else's address). Each batch carries an
  * idempotency key, so re-running within 24h after a crash won't double-send
@@ -26,7 +28,12 @@ const SUBJECT = 'Святе Письмо знову працює';
 const EXCLUDED_SUFFIX = '.ru';
 const GREETING = 'Слава Ісусу Христу!';
 
-type Recipient = { id: number; email: string; emailVerified: boolean };
+type Recipient = {
+  id: number;
+  email: string;
+  emailVerified: boolean;
+  emailBouncedAt?: Date | null;
+};
 
 const args = process.argv.slice(2);
 const send = args.includes('--send');
@@ -120,13 +127,18 @@ async function main() {
   }
 
   const users: Recipient[] = await prisma.user.findMany({
-    select: { id: true, email: true, emailVerified: true },
+    select: { id: true, email: true, emailVerified: true, emailBouncedAt: true },
     orderBy: { id: 'asc' },
   });
 
-  const recipients = users.filter((u) => !u.email.trim().toLowerCase().endsWith(EXCLUDED_SUFFIX));
+  const bounced = users.filter((u) => u.emailBouncedAt);
+  const excluded = users.filter(
+    (u) => !u.emailBouncedAt && u.email.trim().toLowerCase().endsWith(EXCLUDED_SUFFIX),
+  );
+  const recipients = users.filter((u) => !u.emailBouncedAt && !excluded.includes(u));
   console.log(
-    `${recipients.length} recipient(s) (${recipients.filter((r) => isGmail(r.email)).length} Gmail, get the Google login note); skipped ${users.length - recipients.length} ${EXCLUDED_SUFFIX} address(es).`,
+    `${recipients.length} recipient(s) (${recipients.filter((r) => isGmail(r.email)).length} Gmail, get the Google login note); ` +
+      `skipped ${excluded.length} ${EXCLUDED_SUFFIX} address(es) and ${bounced.length} previously bounced.`,
   );
 
   if (!send) {

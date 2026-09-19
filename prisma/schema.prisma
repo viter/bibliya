@@ -45,18 +45,19 @@ model tsytaty {
 }
 
 model user {
-  id            Int          @id @default(autoincrement())
-  name          String       @db.VarChar(255)
-  username      String?      @db.VarChar(128)
-  email         String       @db.VarChar(128)
-  emailVerified Boolean      @default(false)
-  image         String?      @db.VarChar(255)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @default(now()) @updatedAt
-  sessions      session[]
-  accounts      account[]
-  katehoriyi    katehoriyi[]
-  tsytaty       tsytaty[]
+  id             Int          @id @default(autoincrement())
+  name           String       @db.VarChar(255)
+  username       String?      @db.VarChar(128)
+  email          String       @db.VarChar(128)
+  emailVerified  Boolean      @default(false)
+  emailBouncedAt DateTime?
+  image          String?      @db.VarChar(255)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+  sessions       session[]
+  accounts       account[]
+  katehoriyi     katehoriyi[]
+  tsytaty        tsytaty[]
 
   @@unique([email])
 }
