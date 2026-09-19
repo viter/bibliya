@@ -7,6 +7,7 @@ import { forwardRef } from 'react';
 import HomeButton from '@/components/HomeButton';
 import ThemeSwitch from './ThemeSwitch';
 import PaletteSwitch from './PaletteSwitch';
+import UserMenu from './auth/UserMenu';
 
 interface MobileMenuProps {
   data: Data[];
@@ -45,6 +46,7 @@ const MobileMenu = forwardRef<HTMLDivElement, MobileMenuProps>(function MobileMe
             <PaletteSwitch />
 
             <ThemeSwitch />
+            <UserMenu />
           </div>
         </div>
 

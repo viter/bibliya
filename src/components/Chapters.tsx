@@ -70,8 +70,8 @@ const Chapters = forwardRef<HTMLDivElement, ChaptersProps>(function Chapters(
                       {firstVerseWords.join(' ')}
                     </span>
                   )}
-                  {restVerses.map((verse) => (
-                    <span key={verse.num} id={verseAnchorId(dataItem.id, verse.num)}>
+                  {restVerses.map((verse, index) => (
+                    <span key={`${verse.num}_${index}`} id={verseAnchorId(dataItem.id, verse.num)}>
                       {' '}
                       <span className="text-primary font-bold" data-verse-num>
                         {verse.num}

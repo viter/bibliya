@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, 'h-screen')}>
         <script dangerouslySetInnerHTML={{ __html: setPaletteScript }} />
-        <div className="md:w-190 lg:w-250 xl:w-7xl 2xl:w-350 relative md:mx-auto px-2 md:px-5">
+        <div className="md:max-w-190 lg:max-w-250 xl:max-w-7xl 2xl:max-w-350 relative md:mx-auto px-2 md:px-5">
           <Providers>
             {children}
             <RootOverlay />

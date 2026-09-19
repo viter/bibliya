@@ -7,6 +7,7 @@ import PaletteSwitch from './PaletteSwitch';
 import SearchBtn from './Search/SearchBtn';
 import QuotesBtn from './QuotesBtn';
 import UserMenu from './auth/UserMenu';
+import HelpBtn from './HelpBtn';
 
 export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick: () => void }) {
   return (
@@ -26,6 +27,7 @@ export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick
             <div className="hidden md:flex items-center gap-1">
               <PaletteSwitch />
               <ThemeSwitch />
+              <HelpBtn />
               <UserMenu />
             </div>
           </div>

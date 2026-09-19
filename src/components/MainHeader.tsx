@@ -7,6 +7,7 @@ import QuotesBtn from './QuotesBtn';
 import PaletteSwitch from './PaletteSwitch';
 import ThemeSwitch from './ThemeSwitch';
 import UserMenu from './auth/UserMenu';
+import HelpBtn from './HelpBtn';
 import Link from 'next/link';
 
 const evangelieFont = localFont({
@@ -38,6 +39,7 @@ export default function MainHeader() {
         <QuotesBtn />
         <PaletteSwitch />
         <ThemeSwitch />
+        <HelpBtn />
         <UserMenu />
       </div>
     </header>
