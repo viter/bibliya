@@ -37,13 +37,15 @@ interface SearchParamsProps {
   searchParams: Promise<{
     q: string;
     zavit?: string | undefined;
-    k?: string[] | undefined;
+    k?: string | string[] | undefined;
   }>;
 }
 
 export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.Element> {
   const searchParams = await props.searchParams;
-  const { q, zavit, k } = searchParams;
+  const { q, zavit } = searchParams;
+  // a single `k` param arrives as a string, multiple as an array
+  const k = searchParams.k === undefined ? undefined : [searchParams.k].flat();
 
   // remove all unnecessary whitespaces
   const words = q.replace(/\s\s+/g, ' ').trim().split(' ');
