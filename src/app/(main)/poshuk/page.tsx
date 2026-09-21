@@ -4,6 +4,7 @@ import { Data } from '@/lib/types';
 import { parseVerseLine, verseAnchorId } from '@/lib/verse';
 import { knyhy } from '@/utils/knyhy';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import type { JSX } from 'react';
@@ -35,7 +36,7 @@ function highlightLine(line: string, words: string[]): ReactNode[] {
 
 interface SearchParamsProps {
   searchParams: Promise<{
-    q: string;
+    q?: string | string[] | undefined;
     zavit?: string | undefined;
     k?: string | string[] | undefined;
   }>;
@@ -43,9 +44,14 @@ interface SearchParamsProps {
 
 export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.Element> {
   const searchParams = await props.searchParams;
-  const { q, zavit } = searchParams;
+  const { zavit } = searchParams;
+  // repeated `q` params arrive as an array, use the first one
+  const q = [searchParams.q].flat()[0]?.trim();
   // a single `k` param arrives as a string, multiple as an array
   const k = searchParams.k === undefined ? undefined : [searchParams.k].flat();
+
+  // nothing to search for, show the main page
+  if (!q) redirect('/');
 
   // remove all unnecessary whitespaces
   const words = q.replace(/\s\s+/g, ' ').trim().split(' ');
@@ -100,6 +106,14 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
     return res as Data[];
   }
 
+  const lineMatches = (line: string) => {
+    const lowerLine = line.toLowerCase();
+    return words.some((word) => lowerLine.includes(word.toLowerCase()));
+  };
+
+  // a full-text hit may have no line containing the literal words, so only count results we can show
+  const visibleResults = results.filter((r) => r.text.some(lineMatches));
+
   return (
     <div className="relative">
       <div className="lg:shadow-md w-full bg-card p-1 xl:p-10 2xl:p-15 rounded-lg h-[calc(100dvh-10rem)] overflow-hidden">
@@ -108,7 +122,13 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
           scrollbarClassName="opacity-0 data-[hovering]:opacity-100 data-[scrolling]:opacity-100"
         >
           <p className="text-center text-2xl mb-5">Результати пошуку</p>
-          {results.map((r) => (
+          {visibleResults.length === 0 && (
+            <p className="text-center text-muted-foreground">
+              За запитом «{words.join(' ')}» нічого не знайдено. Перевірте написання або спробуйте
+              інші слова чи ширшу область пошуку.
+            </p>
+          )}
+          {visibleResults.map((r) => (
             <div key={r.id} className="mb-10">
               <p className="text-xl font-semibold text-muted-foreground mb-2">
                 {Array.isArray(knyhy[r.knyha].title) && knyhy[r.knyha].title.length > 1
@@ -117,8 +137,7 @@ export default async function PoshukPage(props: SearchParamsProps): Promise<JSX.
               </p>
               <p className="italic text-md font-semibold mb-1">{r.rozdil}</p>
               {r.text.map((line, i) => {
-                const lowerLine = line.toLowerCase();
-                if (!words.some((word) => lowerLine.includes(word.toLowerCase()))) return null;
+                if (!lineMatches(line)) return null;
 
                 const verse = parseVerseLine(line);
                 const href = verse
