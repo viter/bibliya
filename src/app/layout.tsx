@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   return (
-    <html lang="uk"suppressHydrationWarning>
+    <html lang="uk" suppressHydrationWarning>
       <body className={cn(inter.className, 'h-screen')}>
         <script dangerouslySetInnerHTML={{ __html: setPaletteScript }} />
         <div className="md:max-w-190 lg:max-w-250 xl:max-w-7xl 2xl:max-w-350 relative md:mx-auto px-2 md:px-5">
