@@ -8,6 +8,7 @@ import PaletteSwitch from './PaletteSwitch';
 import ThemeSwitch from './ThemeSwitch';
 import UserMenu from './auth/UserMenu';
 import HelpBtn from './HelpBtn';
+import FeedbackBtn from './FeedbackBtn';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -44,6 +45,7 @@ export default function MainHeader() {
         <PaletteSwitch />
         <ThemeSwitch />
         <HelpBtn />
+        <FeedbackBtn />
         <UserMenu />
       </div>
     </header>

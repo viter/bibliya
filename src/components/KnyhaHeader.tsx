@@ -8,6 +8,7 @@ import SearchBtn from './Search/SearchBtn';
 import QuotesBtn from './QuotesBtn';
 import UserMenu from './auth/UserMenu';
 import HelpBtn from './HelpBtn';
+import FeedbackBtn from './FeedbackBtn';
 
 export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick: () => void }) {
   return (
@@ -28,6 +29,7 @@ export default function KnyhaHeader({ knyha, onClick }: { knyha: string; onClick
               <PaletteSwitch />
               <ThemeSwitch />
               <HelpBtn />
+              <FeedbackBtn />
               <UserMenu />
             </div>
           </div>
